@@ -20,8 +20,8 @@ There are a number of sample reports to show how Java can be used to process SMF
 1. [Analyzing Duplicate SMF records](#analyzing-duplicate-smf-records)
 1. [Summarizing Data by Jobname](#summarizing-data-by-jobname)
 1. [Highest Contributors to R4HA Peak](#highest-contributors-to-r4ha-peak)
-1. [User Key Common Report](#user-key-common-report)
-1. [A/B (Before/After) Comparison](#A-B--Before-After--Comparison)
+1. [User Key Common](#user-key-common)
+1. [A/B (Before/After) Comparison](#ab-beforeafter-comparison)
 
 ### Counting SMF Records
 
