@@ -22,6 +22,7 @@ There are a number of sample reports to show how Java can be used to process SMF
 1. [Highest Contributors to R4HA Peak](#highest-contributors-to-r4ha-peak)
 1. [User Key Common](#user-key-common)
 1. [A/B (Before/After) Comparison](#ab-beforeafter-comparison)
+1. [Dataset Activity](#dataset-activity)
 
 ### Counting SMF Records
 
@@ -94,6 +95,13 @@ if a task uses user key common storage.
 Source: [BeforeAfterProgramStatistics.java](./reports/src/main/java/com/smfreports/type30/BeforeAfterProgramStatistics.java)
 
 Produce a report by program name showing changes in zIIP%, zIIP on CP% and CPU milliseconds per I/O before and after a specified date. This type of report may help to evaluate the inpact of e.g. hardware or configuration changes.
+
+### Dataset Activity
+
+Source: [DatasetActivity.java](./reports/src/main/java/com/smfreports/dataset/DatasetActivity.java)
+
+List activity against datasets (read, write, update etc.) Additional documentation is available here: 
+[Dataset Reports](./reports/src/main/java/com/smfreports/dataset)
 
 ## Contributing
 
