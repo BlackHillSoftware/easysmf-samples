@@ -16,9 +16,17 @@
 @REM     were set by the Java installation process.
 @REM
 
+@REM     Directory containing EasySMF:
 set "EASYSMFLOCATION=C:\path to\easysmf-je-VERSION"
+
+@REM     File containing EasySMF Key:
 set "EASYSMFKEY=C:\path to your\key.txt"
+
+@REM     Optional, directory with compiled EasySMF Java programs:
 set "TARGET=java\target"
 
+@REM     Directory containing EasySMF Samples jar file:
+set "EASYSMFSAMPLES=C:\path to\easysmf-samples"
 
-java -classpath "%TARGET%;%EASYSMFLOCATION%\samples\*;%EASYSMFLOCATION%\jar\*" %1 %2
+
+java -classpath "%TARGET%;%EASYSMFSAMPLES%\*;%EASYSMFLOCATION%\jar\*" %*
