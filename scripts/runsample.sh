@@ -19,8 +19,16 @@
 # were set by the Java installation process.
 #
 
+# Directory containing EasySMF:
 export EASYSMFLOCATION="./java/easysmf-je-VERSION"
+
+# File containing EasySMF Key:
 export EASYSMFKEY="./java/easysmfkey.txt"
+
+# Optional, directory with compiled EasySMF Java programs:
 export TARGET="./java/target"
 
-java -classpath "$TARGET:$EASYSMFLOCATION/samples/*:$EASYSMFLOCATION/jar/*" $1 $2
+# Directory containing EasySMF Samples jar file:
+export EASYSMFSAMPLES="./java/easysmf-samples"
+
+java -classpath "$TARGET:$EASYSMFSAMPLES/*:$EASYSMFLOCATION/jar/*" $@
