@@ -17,7 +17,7 @@ public class CicsTransactionSummary
     {
         if (args.length < 1)
         {
-            System.out.println("Usage: CicsTransactionSummary <input-name>");
+            System.out.println("Usage: CicsTransactionSummary <input-name> <input-name2> ...");
             System.out.println("<input-name> can be filename, //DD:DDNAME or //'DATASET.NAME'");          
             return;
         }
@@ -31,34 +31,37 @@ public class CicsTransactionSummary
         // SmfRecordReader.fromName(...) accepts a filename, a DD name in the
         // format //DD:DDNAME or MVS dataset name in the form //'DATASET.NAME'
         
-        try (SmfRecordReader reader = SmfRecordReader.fromName(args[0])) 
-        {     
-            reader.include(110, Smf110Record.SMFMNSTY);
-            for (SmfRecord record : reader) 
-            {
-                Smf110Record r110 = Smf110Record.from(record);
-                
-                if (r110.haveDictionary()) 
-                {
-                    Map<String, TransactionData> applidTransactions = 
-                        applids.computeIfAbsent(
-                            r110.mnProductSection().smfmnprn(), 
-                            transactions -> new HashMap<String, TransactionData>());
-
-                    for (PerformanceRecord mn : r110.performanceRecords()) 
-                    {
-                        String txName = mn.getField(Field.TRAN);
-                        txCount++;
-                        applidTransactions.computeIfAbsent(
-                                txName, 
-                                x -> new TransactionData(txName)).add(mn);
-                    }
-                } 
-                else 
-                {
-                    noDictionary++;
-                }
-            }
+        for (String name : args)
+        {
+	        try (SmfRecordReader reader = SmfRecordReader.fromName(name)) 
+	        {     
+	            reader.include(110, Smf110Record.SMFMNSTY);
+	            for (SmfRecord record : reader) 
+	            {
+	                Smf110Record r110 = Smf110Record.from(record);
+	                
+	                if (r110.haveDictionary()) 
+	                {
+	                    Map<String, TransactionData> applidTransactions = 
+	                        applids.computeIfAbsent(
+	                            r110.mnProductSection().smfmnprn(), 
+	                            transactions -> new HashMap<String, TransactionData>());
+	
+	                    for (PerformanceRecord txData : r110.performanceRecords()) 
+	                    {
+	                        String txName = txData.getField(Field.TRAN);
+	                        txCount++;
+	                        applidTransactions.computeIfAbsent(
+	                                txName, 
+	                                x -> new TransactionData(txName)).add(txData);
+	                    }
+	                } 
+	                else 
+	                {
+	                    noDictionary++;
+	                }
+	            }
+	        }
         }
         
         writeReport(applids);
@@ -130,14 +133,14 @@ public class CicsTransactionSummary
             this.name = name;
         }
 
-        public void add(PerformanceRecord perfdata) 
+        public void add(PerformanceRecord txData) 
         {
             count++;
             elapsed += Utils.ToSeconds(
-                    Duration.between(perfdata.getField(Field.START), perfdata.getField(Field.STOP)));
-            dispatch += perfdata.getFieldTimerSeconds(Field.USRDISPT);
-            dispatchWait += perfdata.getFieldTimerSeconds(Field.DISPWTT);
-            cpu += perfdata.getFieldTimerSeconds(Field.USRCPUT);
+                    Duration.between(txData.getField(Field.START), txData.getField(Field.STOP)));
+            dispatch += txData.getFieldTimerSeconds(Field.USRDISPT);
+            dispatchWait += txData.getFieldTimerSeconds(Field.DISPWTT);
+            cpu += txData.getFieldTimerSeconds(Field.USRCPUT);
         }
 
         public String getName() 
