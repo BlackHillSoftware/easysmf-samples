@@ -1,7 +1,7 @@
 package com.smfreports;
 
 import java.io.*;
-import java.math.BigInteger;
+import java.nio.ByteBuffer;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDateTime;
@@ -46,9 +46,10 @@ public class SmfReportDups
     		System.exit(0);
     	}
         
-    	// Use SHA-256 hashes to find duplicates
-    	MessageDigest sha256 = MessageDigest.getInstance("SHA-256");
-    	Set<BigInteger> recordHashes = new HashSet<BigInteger>();
+    	// We don't need a cryptographically secure hash, SHA-1 might be 
+    	// faster than SHA-256 hashes and should be adequate to find duplicates
+    	MessageDigest sha1 = MessageDigest.getInstance("SHA-1");
+    	Set<Digest> recordHashes = new HashSet<>();
     	
     	// Map to count by SystemID->Minute
     	Map< String, Map<LocalDateTime, RecordStats>> bySystemByMinute = new HashMap<>();
@@ -87,7 +88,7 @@ public class SmfReportDups
 		            			.computeIfAbsent(recordtype, key -> new RecordStats(recordtype, minute));
 		            	
 		                // Is is a duplicate of one already seen?
-		            	if (recordHashes.add(new BigInteger(sha256.digest(record.getBytes()))))
+		            	if (recordHashes.add(new Digest(sha1.digest(record.getBytes()))))
 		                {
 		                    // no
 		                	minuteStats.countUnique();
@@ -246,5 +247,41 @@ public class SmfReportDups
 
 		private int getTotal() { return unique + duplicates; }	
 		private double dupPercent() { return (double)duplicates / unique * 100; }
+    }
+    
+    /**
+     * A class to store hashes in the set, providing hashcode and equals implementations
+     * We need multiple matches before we report duplicate data, so we can use 
+     * a 64 bit integer for the hash code without significant danger of incorrect 
+     * reports. This allows more data to be processed in available memory.
+     */
+    private static class Digest
+    {
+    	public Digest(byte[] digest)
+    	{
+    		// Use the first 8 bytes of the SHA-1 hash 
+    		hashCode = ByteBuffer.wrap(digest).getLong();
+    	}
+    	
+    	@Override
+		public int hashCode() 
+    	{
+    		// simply truncate the 64 bit value
+			return (int) hashCode;
+		}
+    	
+		@Override
+		public boolean equals(Object obj) {
+			if (this == obj)
+				return true;
+			if (obj == null)
+				return false;
+			if (getClass() != obj.getClass())
+				return false;
+			Digest other = (Digest) obj;
+			return this.hashCode == other.hashCode;	
+		}
+		
+    	private long hashCode;	
     }
 }

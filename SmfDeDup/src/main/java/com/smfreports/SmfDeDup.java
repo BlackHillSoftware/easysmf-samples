@@ -1,7 +1,7 @@
 package com.smfreports;
 
 import java.io.*;
-import java.math.BigInteger;
+import java.nio.ByteBuffer;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.*;
@@ -44,11 +44,12 @@ public class SmfDeDup
     	}
     	printWarning();
     	
-    	// Use SHA-256 hashes to find duplicates
-    	MessageDigest sha256 = MessageDigest.getInstance("SHA-256");
+    	// We don't need a cryptographically secure hash, SHA-1 might be 
+    	// faster than SHA-256 hashes and should be adequate to find duplicates
+    	MessageDigest sha1 = MessageDigest.getInstance("SHA-1");
     	
     	// Hashes will be stored as BigIntegers
-    	Set<BigInteger> recordHashes = new HashSet<BigInteger>();
+    	Set<Digest> recordHashes = new HashSet<>();
     	
     	Map<Integer, RecordStats> duplicatesByType = new HashMap<>(); 
     	
@@ -65,7 +66,7 @@ public class SmfDeDup
             for (SmfRecord record : reader)
             {
             	in++;
-                if (recordHashes.add(new BigInteger(sha256.digest(record.getBytes()))))
+                if (recordHashes.add(new Digest(sha1.digest(record.getBytes()))))
                 {
                 	// new hash, not a duplicate
                 	if (writer != null) // if we have an output file for deduplicated records
@@ -89,10 +90,13 @@ public class SmfDeDup
             }
             System.out.format("Finished, %d records in, %d records out, %d duplicates.%n", in, out, dups);
             
-            System.out.format("%nDuplicates by type:%n");
-            duplicatesByType.values().stream()
-            	.sorted(Comparator.comparing(RecordStats::getRecordtype))
-            	.forEachOrdered(entry -> System.out.format("%4d : %8d%n", entry.getRecordtype(), entry.getCount()));
+            if (dups > 0)
+            {
+	            System.out.format("%nDuplicates by type:%n");
+	            duplicatesByType.values().stream()
+	            	.sorted(Comparator.comparing(RecordStats::getRecordtype))
+	            	.forEachOrdered(entry -> System.out.format("%4d : %8d%n", entry.getRecordtype(), entry.getCount()));
+            }
     	}
 
         catch (Exception e)
@@ -125,4 +129,41 @@ public class SmfDeDup
 			return count;
 		}
     }
+    
+    /**
+     * A class to store hashes in the set, providing hashcode and equals implementations 
+     */
+    private static class Digest
+    {
+    	public Digest(byte[] digest)
+    	{
+    		this.digest = digest;
+    		// for a SHA-1 hash, the first 4 bytes is probably an adequate 
+    		// value to return for hashCode
+    		hashCode = ByteBuffer.wrap(digest).getInt();
+    	}
+    	
+    	@Override
+		public int hashCode() 
+    	{
+			return hashCode;
+		}
+    	
+		@Override
+		public boolean equals(Object obj) {
+			if (this == obj)
+				return true;
+			if (obj == null)
+				return false;
+			if (getClass() != obj.getClass())
+				return false;
+			Digest other = (Digest) obj;
+			return Arrays.equals(this.digest, other.digest);	
+		}
+		
+		private byte[] digest;
+    	private int hashCode;
+    	
+    }
+    
 }
