@@ -2,18 +2,17 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>com.smfreports</groupId>
-  <artifactId>easysmf-je-samples</artifactId>
-  <version>2.0.0</version>
+  <groupId>com.blackhillsoftware.samples</groupId>
+  <artifactId>SmfDeDup</artifactId>
+  <version>1.0.1</version>
   <packaging>jar</packaging>
 
-  <name>EasySMF:JE Samples</name>
+  <name>SmfDeDup</name>
   <url>http://maven.apache.org</url>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <slf4jVersion>1.7.21</slf4jVersion>
-    <easysmfVersion>1.9.6</easysmfVersion>
+    <easysmfVersion>1.9.5</easysmfVersion>
   </properties>
 
  <build>  
@@ -28,17 +27,19 @@
 			<release>8</release>
 		</configuration>
       </plugin>
-        <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
+      <plugin>
             <artifactId>maven-jar-plugin</artifactId>
             <version>2.5</version>
-            <configuration>
-                <archive>
-                    <manifest>
-                    </manifest>
-                </archive>
-            </configuration>
-        </plugin>      
+				<configuration>
+					<archive>
+						<manifest>
+							<addClasspath>true</addClasspath>
+							<classpathPrefix>lib/</classpathPrefix>
+							<mainClass>com.smfreports.SmfDeDup</mainClass>
+						</manifest>
+					</archive>
+				</configuration>
+        </plugin>    
      </plugins>  
    </build>
 
@@ -46,7 +47,7 @@
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>4.13.1</version>
+      <version>3.8.1</version>
       <scope>test</scope>
     </dependency>
         <dependency>
@@ -54,15 +55,5 @@
     	<artifactId>easysmf-je</artifactId>
     	<version>${easysmfVersion}</version>
     </dependency>
-      <dependency>
-	<groupId>org.slf4j</groupId>
-	<artifactId>slf4j-api</artifactId>
-	<version>${slf4jVersion}</version>
-	</dependency>
-	<dependency>
-	<groupId>org.slf4j</groupId>
-	<artifactId>slf4j-simple</artifactId>
-	<version>${slf4jVersion}</version>
-	</dependency>
 	</dependencies>
 </project>

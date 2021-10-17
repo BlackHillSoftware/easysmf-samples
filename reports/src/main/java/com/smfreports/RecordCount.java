@@ -30,6 +30,8 @@ public class RecordCount
     	// Keys are SMF record type and subtype
         Map<Integer, Map<Integer, RecordStats>> statsMap = new HashMap<>();
         
+        RecordStats totals = new RecordStats(-1, -1);
+        
         // SmfRecordReader.fromName(...) accepts a filename, a DD name in the
         // format //DD:DDNAME or MVS dataset name in the form //'DATASET.NAME'
     	
@@ -37,6 +39,7 @@ public class RecordCount
         { 
             for (SmfRecord record : reader)
             {
+                totals.add(record);
                 int type = record.recordType();
                 int subtype = record.hasSubtypes() ? record.subType() : 0;
                 
@@ -46,10 +49,10 @@ public class RecordCount
             }
         }
 
-        writeReport(statsMap);
+        writeReport(statsMap, totals);
     }
 
-    private static void writeReport(Map<Integer, Map<Integer, RecordStats>> statsMap)
+    private static void writeReport(Map<Integer, Map<Integer, RecordStats>> statsMap, RecordStats totals)
     {
         // get the total bytes from all record types
         long totalbytes = statsMap.entrySet().stream() 		 // get Map entries (keyed by SMF type)
@@ -85,6 +88,16 @@ public class RecordCount
                     entry.getMinLength(), 
                     entry.getMaxLength(),
                     entry.getBytes() / entry.getCount()));
+                            
+        System.out.format("%n%-14s %11d %11d %7.1f %9d %9d %9d %n",
+                "Total:",
+                totals.getCount(), 
+                totals.getBytes() / (1024 * 1024),             
+                (float) (totals.getBytes()) / totalbytes * 100, 
+                totals.getMinLength(), 
+                totals.getMaxLength(),
+                totals.getBytes() / totals.getCount());
+        
     }
 
     /**

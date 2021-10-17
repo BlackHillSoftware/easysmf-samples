@@ -42,7 +42,7 @@ The short answer is: Yes, duplicate SMF records occur surprisingly often. The ti
 
 **SmfDeDup**
 
-Source: [SmfDeDup.java](./reports/src/main/java/com/smfreports/SmfDeDup.java)
+Source: [SmfDeDup.java](./SmfDeDup/src/main/java/com/smfreports/SmfDeDup.java)
 
 SmfDeDup reports whether a SMF dataset contains duplicate records, with duplicate counts by record type. 
 
@@ -50,7 +50,7 @@ Optionally, it can write a new dataset/file with the duplicates removed (even th
 
 **SmfReportDups**
 
-Source: [SmfReportDups.java](./reports/src/main/java/com/smfreports/SmfReportDups.java)
+Source: [SmfReportDups.java](./SmfReportDups/src/main/java/com/smfreports/SmfReportDups.java)
 
 SmfReportDups attempts to better answer the question of whether data has been duplicated due to a processing error.
 
