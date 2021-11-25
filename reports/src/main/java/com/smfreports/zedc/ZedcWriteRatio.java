@@ -29,7 +29,8 @@ public class ZedcWriteRatio
         if (args.length < 1)
         {
             System.out.println("Usage: ZedcWriteRatio <input-name>");
-            System.out.println("<input-name> can be filename, //DD:DDNAME or //'DATASET.NAME'");          
+            System.out.println(
+            		"<input-name> can be filename, //DD:DDNAME or //'DATASET.NAME'");          
             return;
         }
     	
@@ -58,7 +59,9 @@ public class ZedcWriteRatio
 	            .filter(r15 -> r15.compressedFormatDatasetSections().size() > 0)
 	            .map(r15 -> new CompressionInfo(r15))
 	            .filter(compressionInfo -> compressionInfo.writeRatio() > 1)
-	            .sorted(Comparator.comparingDouble(CompressionInfo::writeRatio).reversed())
+	            .sorted(
+	            	Comparator.comparingDouble(CompressionInfo::writeRatio)
+	            		.reversed())
 	            .limit(1000)
 	            .forEachOrdered(dataset ->
 		    		System.out.format(detailFormat,                             
