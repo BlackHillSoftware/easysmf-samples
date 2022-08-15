@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.blackhillsoftware.samples</groupId>
-	<artifactId>SmfDeDup</artifactId>
+	<artifactId>smf-de-dup</artifactId>
 	<version>1.0.1</version>
 	<packaging>jar</packaging>
 

@@ -1,12 +1,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.smfreports</groupId>
-	<artifactId>easysmf-je-samples</artifactId>
-	<version>2.0.0</version>
+	<groupId>com.blackhillsoftware.samples</groupId>
+	<artifactId>smf-report-dups</artifactId>
+	<version>1.0.1</version>
 	<packaging>jar</packaging>
 
-	<name>EasySMF:JE Samples</name>
+	<name>SmfReportDups</name>
 	<url>https://www.blackhillsoftware.com</url>
 
 	<repositories>
@@ -54,6 +54,19 @@
 						</configuration>
 					</execution>
 				</executions>
+			</plugin>
+			<plugin>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>2.5</version>
+				<configuration>
+					<archive>
+						<manifest>
+							<addClasspath>true</addClasspath>
+							<classpathPrefix>./</classpathPrefix>
+							<mainClass>com.smfreports.SmfReportDups</mainClass>
+						</manifest>
+					</archive>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
