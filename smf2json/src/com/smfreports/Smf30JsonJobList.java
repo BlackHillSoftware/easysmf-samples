@@ -38,24 +38,9 @@ public class Smf30JsonJobList
             reader.stream()
                 .map(record -> Smf30Record.from(record))
                 .filter(r30 -> r30.completionSection() != null)
-                .filter(r30 -> !r30.header().smf30wid().equals("OMVS"))
-                .filter(r30 -> r30.identificationSection().smf30jbn().startsWith("ANDREWR"))
-                .filter(r30 -> r30.identificationSection().smf30rud().startsWith("ANDREWR"))
-                .limit(5)
                 .forEach(r30 -> 
                 {
-                    // build JobInfo with the information required
-                    JobInfo job = new JobInfo();
-                    // Specific fields
-                    job.time = r30.smfDateTime();
-                    job.system = r30.system();
-                    job.jobname = r30.identificationSection().smf30jbn();
-                    job.jobid = r30.identificationSection().smf30jnm();
-                    job.userid = r30.identificationSection().smf30rud();
-                    // Whole sections
-                    job.completion = r30.completionSection();
-                    job.processorAccounting = r30.processorAccountingSection();
-                    
+                    JobInfo job = new JobInfo(r30);
                     System.out.println(gson.toJson(job));
                 });                                                 
         }
@@ -65,6 +50,19 @@ public class Smf30JsonJobList
     // A class to collect the information required from the record.
     static class JobInfo
     {
+        JobInfo(Smf30Record r30)
+        {
+            // Specific fields
+            time = r30.smfDateTime();
+            system = r30.system();
+            jobname = r30.identificationSection().smf30jbn();
+            jobid = r30.identificationSection().smf30jnm();
+            userid = r30.identificationSection().smf30rud();
+            // Whole sections
+            completion = r30.completionSection();
+            processorAccounting = r30.processorAccountingSection();
+        }
+        
         LocalDateTime time;
         String system;
         String jobname;
