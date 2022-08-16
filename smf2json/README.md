@@ -18,7 +18,7 @@ If you want to build and run the project without using Maven you need the **easy
 
 ## Smf30RecordToJson ##
 
-- [Source](src\com\smfreports\Smf30RecordToJson.java)
+- [Source](src/com/smfreports/Smf30RecordToJson.java)
 
 This sample demonstrates formatting a single record using the JSON pretty print format. It is useful if you want to see the format of the data in a particular SMF record, because the structure of the sections is visible and you can see relationships between them.
 
@@ -26,7 +26,7 @@ The sample formats a SMF 30 Step End record for an IEFBR14 step, to keep the amo
 
 ## Smf30JsonJobList ##
 
-- [Source](src\com\smfreports\Smf30JsonJobList.java)
+- [Source](src/com/smfreports/Smf30JsonJobList.java)
 
 This sample creates JSON data for multiple jobs. It is more representative of the type of output that you might send to another system for further analysis.
 
@@ -78,7 +78,6 @@ It shows how to create a class to extract specific fields and record sections fr
       "smf30dctSeconds": 0.0,
       "smf30ddn": "DEL",
       "smf30dev": 32,
-      "smf30key": 9921715034671443931960459328,
       "smf30utp": 15,
       "smf30xbs": 0
     }
