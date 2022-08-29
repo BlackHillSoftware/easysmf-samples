@@ -3,14 +3,102 @@
 This repository contains sample code for EasySMF:JE.
 
 EasySMF:JE is a commercial product developed by [Black Hill Software](https://www.blackhillsoftware.com) which provides a Java API to map z/OS SMF records. To run these samples, you will require the EasySMF:JE jar file and a EasySMF:JE license key.
+### 30 day Trial ###
 
-A free, 30 day trial is available. You can request a trial here: [EasySMF 30 Day Trial](https://www.blackhillsoftware.com/30-day-trial/)
+A free, 30 day trial is available. You can get a trial key here: [EasySMF 30 Day Trial](https://www.blackhillsoftware.com/30-day-trial/)
 
 ## Getting Started
 
 There is a [Tutorial](./tutorial) to help you get started and understand how EasySMF processes SMF records. It demonstrates the basic principles behind reading SMF records, extracting the data sections and fields.
 
 The Tutorial can be found here: [EasySMF Tutorial](./tutorial)
+
+## Building the Samples
+
+The samples are set up to build using [Apache Maven](https://maven.apache.org/). To build the samples:
+1. Install Apache Maven
+1. Clone this repository using Git or download as a zip file
+1. Build the samples using the pom for the project you want to build:
+    - ```mvn -f sample-reports/pom.xml clean package```
+    
+    The first time you run Maven it will download many packages used by Maven to build the project, plus any dependencies for the project itself. These are cached on your machine so they don't need to be downloaded each time.
+1. The output will be a jar file in the "target" subdirectory e.g. ```sample-reports/target```. Additional jar files for the project dependencies will also be copied to the target directory.
+
+## Running the samples ##
+
+### Windows ###
+
+1. Set the environment variable for the EasySMF key file e.g.
+
+    ```set EASYSMFKEY=C:\Users\Andrew\Documents\easysmfkey.txt```
+
+1. Run the program
+
+    ```java -cp  sample-reports/target/* com.smfreports.RecordCount smfdata.smf```
+    
+    where
+    - ```-cp sample-reports/target/*``` : sets the CLASSPATH to the output directory containing the output jar file and dependencies
+    - ```com.smfreports.RecordCount``` : is the full name including the package of the class to run
+    - ```smfdata.smf``` : is the file containing SMF data
+
+### Linux ###
+
+1. Set the environment variable for the EasySMF key file e.g.
+
+    ```export EASYSMFKEY=C:\Users\Andrew\Documents\easysmfkey.txt```
+
+1. Run the program
+
+    ```java -cp 'sample-reports/target/*' com.smfreports.RecordCount smfdata.smf```
+    
+    where
+    - ```-cp 'sample-reports/target/*'``` : sets the CLASSPATH to the output directory containing the output jar file and dependencies
+    - ```com.smfreports.RecordCount``` : is the full name including the package of the class to run
+    - ```smfdata.smf``` : is the file containing SMF data
+
+### Runnable Jars ###
+
+Some of the projects specify a **mainClass** in the pom.xml file. This creates a runnable jar where you can specify the jar name rather than the class you want to run. The runnable jar sets its own classpath relative to the main jar file.
+
+To run these programs, specify the ```-jar``` java option:
+
+```java -jar smf-de-dup/target/smf-de-dup-1.0.1.jar smfdata.smf ```
+
+### On z/OS under OMVS ###
+
+Transfer/copy the jar files in binary mode to a unix directory on z/OS. Then run the programs using the same procedures as Linux. A dataset name can be specified using the syntax:
+
+```java -cp  'sample-reports/target/*' com.smfreports.RecordCount //"'MVS1.SMF.RECORDS'"```
+
+### On z/OS in batch ###
+
+1. Install the JZOS batch launcher according to the IBM installation instructions. Installation consists of copying the JZOS load modules from the Java filesystem to a PDS/E, and copying sample JCL and PROCs.
+
+1. Modify the JZOS sample JCL to run EasySMF
+    - set the JAVACLS and ARGS parameters
+    - add a DD for EZSMFKEY
+    - specify the input dataset
+    - set APP_HOME to the directory where you copied the jar files
+
+
+    ```
+    //JAVA EXEC PROC=JVMPRC80,
+    // JAVACLS='com.smfreports.RecordCount',
+    // ARGS='//DD:INPUT'
+    //INPUT  DD DISP=SHR,DSN=MVS1.SMF.RECORDS
+    //EZSMFKEY DD DISP=SHR,DSN=VENDOR.PARMLIB(EZSMFKEY)
+    ```
+
+    ```
+    //STDENV DD *
+    ... (lines skipped)
+
+    # Customize your CLASSPATH here
+    APP_HOME=/home/andrewr/java
+    CLASSPATH=$APP_HOME:"${JAVA_HOME}"/lib:"${JAVA_HOME}"/lib/ext
+
+    ... (lines skipped)
+    ```
 
 ## Sample Reports
 
@@ -102,12 +190,3 @@ Source: [DatasetActivity.java](./reports/src/main/java/com/smfreports/dataset/Da
 
 List activity against datasets (read, write, update etc.) Additional documentation is available here: 
 [Dataset Reports](./reports/src/main/java/com/smfreports/dataset)
-
-## Contributing
-
-Thanks for your interest.
-
-Contributions can be made using the standard github fork/pull request process. For an outline for beginners see:
-- [Github Help : Bootcamp : Set up git](https://help.github.com/articles/set-up-git/)
-- [Github Help : Bootcamp : Fork a repo](https://help.github.com/articles/fork-a-repo/)
-- [Github Help : Bootcamp : Be social](https://help.github.com/articles/be-social/)
