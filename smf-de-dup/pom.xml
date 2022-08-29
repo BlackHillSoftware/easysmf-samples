@@ -2,11 +2,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.blackhillsoftware.samples</groupId>
-	<artifactId>SmfReportDups</artifactId>
+	<artifactId>smf-de-dup</artifactId>
 	<version>1.0.1</version>
 	<packaging>jar</packaging>
 
-	<name>SmfReportDups</name>
+	<name>SmfDeDup</name>
 	<url>https://www.blackhillsoftware.com</url>
 
 	<repositories>
@@ -38,14 +38,32 @@
 				</configuration>
 			</plugin>
 			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>3.3.0</version>
+				<executions>
+					<execution>
+						<id>copy-dependencies</id>
+						<phase>package</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.directory}</outputDirectory>
+							<includeScope>runtime</includeScope>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
 				<artifactId>maven-jar-plugin</artifactId>
 				<version>2.5</version>
 				<configuration>
 					<archive>
 						<manifest>
 							<addClasspath>true</addClasspath>
-							<classpathPrefix>lib/</classpathPrefix>
-							<mainClass>com.smfreports.SmfReportDups</mainClass>
+							<classpathPrefix>./</classpathPrefix>
+							<mainClass>com.smfreports.SmfDeDup</mainClass>
 						</manifest>
 					</archive>
 				</configuration>
@@ -54,12 +72,6 @@
 	</build>
 
 	<dependencies>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>3.8.1</version>
-			<scope>test</scope>
-		</dependency>
 		<dependency>
 			<groupId>com.blackhillsoftware.smf</groupId>
 			<artifactId>easysmf-je</artifactId>
