@@ -1,0 +1,6 @@
+# Default to EBCDIC unless otherwise specified
+*                zos-working-tree-encoding=ibm-1047 git-encoding=UTF8
+
+# The git attributes and ignore files MUST be ASCII
+*.gitattributes  zos-working-tree-encoding=iso8859-1 git-encoding=UTF8
+*.gitignore      zos-working-tree-encoding=iso8859-1 git-encoding=UTF8

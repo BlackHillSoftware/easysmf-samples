@@ -1,12 +1,12 @@
-package com.smfreports;
+package com.smfreports.json;
 
-import java.io.IOException;
-import java.time.LocalDateTime;
+import java.io.*;
+import java.time.*;
 
-import com.blackhillsoftware.json.EasySmfGsonBuilder;
-import com.blackhillsoftware.smf.SmfRecordReader;
+import com.blackhillsoftware.json.*;
+import com.blackhillsoftware.smf.*;
 import com.blackhillsoftware.smf.smf30.*;
-import com.google.gson.Gson;
+import com.google.gson.*;
 
 /**
  * 
@@ -26,7 +26,7 @@ public class Smf30JsonJobList
     public static void main(String[] args) throws IOException                                   
     {
         Gson gson = new EasySmfGsonBuilder()
-                .avoidScientificNotation() // make decimals more readable
+                .avoidScientificNotation(true) // make decimals more readable
                 .createGson();
         
         // SmfRecordReader.fromName(...) accepts a filename, a DD name in the

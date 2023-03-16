@@ -3,7 +3,7 @@
 
 	<groupId>com.blackhillsoftware.samples</groupId>
 	<artifactId>smf-de-dup</artifactId>
-	<version>1.0.1</version>
+	<version>1.1.0</version>
 	<packaging>jar</packaging>
 
 	<name>SmfDeDup</name>
@@ -14,15 +14,12 @@
 			<id>black-hill-software</id>
 			<name>Black Hill Software Repository</name>
 			<url>https://blackhillsoftware.jfrog.io/artifactory/public</url>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
 		</repository>
 	</repositories>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<easysmfVersion>1.10.0</easysmfVersion>
+		<easysmfVersion>[2.0.0,)</easysmfVersion>
 	</properties>
 
 	<build>

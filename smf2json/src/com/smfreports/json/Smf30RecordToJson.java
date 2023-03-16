@@ -1,11 +1,11 @@
-package com.smfreports;
+package com.smfreports.json;
 
-import java.io.IOException;
+import java.io.*;
 
-import com.blackhillsoftware.json.EasySmfGsonBuilder;
-import com.blackhillsoftware.smf.SmfRecordReader;
-import com.blackhillsoftware.smf.smf30.Smf30Record;
-import com.google.gson.Gson;
+import com.blackhillsoftware.json.*;
+import com.blackhillsoftware.smf.*;
+import com.blackhillsoftware.smf.smf30.*;
+import com.google.gson.*;
 
 /**
  * 
@@ -21,7 +21,7 @@ public class Smf30RecordToJson
     public static void main(String[] args) throws IOException                                   
     {
         Gson gson = new EasySmfGsonBuilder()
-                .avoidScientificNotation() // make decimals more readable
+                .avoidScientificNotation(true) // make decimals more readable
                 .setPrettyPrinting()       // pretty printing = human readable
                 .createGson();
         
