@@ -17,7 +17,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<easysmfVersion>[2.0.0,)</easysmfVersion>
+		<easysmfVersion>2.0.0</easysmfVersion>
 	</properties>
 
 	<build>
@@ -62,7 +62,7 @@
 		<dependency>
 			<groupId>com.blackhillsoftware.json</groupId>
 			<artifactId>easysmf-json</artifactId>
-			<version>[1.1.1,)</version>
+			<version>1.1.2</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-cli</groupId>
