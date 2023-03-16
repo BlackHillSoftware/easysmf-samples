@@ -16,13 +16,15 @@ The Tutorial can be found here: [EasySMF Tutorial](./tutorial)
 ## Building the Samples
 
 The samples are set up to build using [Apache Maven](https://maven.apache.org/). To build the samples:
+
 1. Install Apache Maven
 1. Clone this repository using Git or download as a zip file
 1. Build the samples using the pom for the project you want to build:
-    - ```mvn -f sample-reports/pom.xml clean package```
-    
-    The first time you run Maven it will download many packages used by Maven to build the project, plus any dependencies for the project itself. These are cached on your machine so they don't need to be downloaded each time.
-1. The output will be a jar file in the "target" subdirectory e.g. ```sample-reports/target```. Additional jar files for the project dependencies will also be copied to the target directory.
+   ```mvn -f sample-reports/pom.xml clean package```      
+
+The first time you run Maven it will download many packages used by Maven to build the project, plus any dependencies for the project itself. These are cached on your machine so they don't need to be downloaded each time.
+
+The output will be a jar file in the "target" subdirectory e.g. ```sample-reports/target```. Additional jar files for the project dependencies will also be copied to the target directory.
 
 ## Running the samples ##
 
