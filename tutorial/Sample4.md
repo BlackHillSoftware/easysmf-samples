@@ -23,7 +23,7 @@ We attempt to get an existing entry from the Map for the program name. If it is 
 ```
 String programName = r30.identificationSection().smf30pgm();
 ProgramStatistics program = programs.get(programName);
-        		
+                
 if (program == null)
 {
     program = new ProgramStatistics();
@@ -43,7 +43,7 @@ private static class ProgramStatistics
 {
     ...
     public void accumulateData(Smf30Record r30)
-    {        	
+    {            
         if (r30.processorAccountingSection() != null)
         {
             count++;

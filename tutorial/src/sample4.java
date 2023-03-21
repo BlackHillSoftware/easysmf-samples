@@ -29,25 +29,25 @@ public class sample4
         
         try (SmfRecordReader reader = SmfRecordReader.fromName(args[0])) 
         {
-        	// Only SMF 30 subtype 4 = Step End records
-        	reader.include(30, 4);
-        	
-        	for (SmfRecord record : reader)
-        	{
-        		Smf30Record r30 = Smf30Record.from(record);
-        		String programName = r30.identificationSection().smf30pgm();
-        	
-        		// Find the entry for the program name and accumulate the data
-        		ProgramStatistics program = programs.get(programName);
-        		
-        		if (program == null)
-        		{
-        			// entry doesn't exist - create new and add to map
-        			program = new ProgramStatistics();
-        			programs.put(programName, program);
-        		}            
-    			program.accumulateData(r30);
-        	}
+            // Only SMF 30 subtype 4 = Step End records
+            reader.include(30, 4);
+            
+            for (SmfRecord record : reader)
+            {
+                Smf30Record r30 = Smf30Record.from(record);
+                String programName = r30.identificationSection().smf30pgm();
+            
+                // Find the entry for the program name and accumulate the data
+                ProgramStatistics program = programs.get(programName);
+                
+                if (program == null)
+                {
+                    // entry doesn't exist - create new and add to map
+                    program = new ProgramStatistics();
+                    programs.put(programName, program);
+                }            
+                program.accumulateData(r30);
+            }
         }
         writeReport(programs);
     }
@@ -87,8 +87,8 @@ public class sample4
                     hhhmmss(programinfo.connectTime / programinfo.count),
                     programinfo.excps / programinfo.count,
                     programinfo.getCpuMsPerIO()
-	            		.map(value -> String.format("%14.3f",value))
-	            		.orElse("")  );
+                        .map(value -> String.format("%14.3f",value))
+                        .orElse("")  );
             });
     }
     
@@ -96,7 +96,7 @@ public class sample4
      * A class to accumulate information about a program.
      */
     private static class ProgramStatistics
-    {   	
+    {       
         /**
          * Add information from a SMF 30 record.
          * 
@@ -108,7 +108,7 @@ public class sample4
             // One step can have many SMF records so we might get called multiple times
             // for the same job step, but some of the SMF sections will occur only
             // once per step e.g. ProcessorAccountingSection.
-        	
+            
             if (r30.processorAccountingSection() != null)
             {
                 count++; // pick a section that only occurs once and use to count job steps
@@ -121,8 +121,8 @@ public class sample4
                 // Assume a Performance section will always accompany the 
                 // Processor Accounting section.
                 normalizedZiipTime += 
-                	r30.processorAccountingSection().smf30TimeOnZiipSeconds() 
-                		* r30.performanceSection().smf30snf() / 256;
+                    r30.processorAccountingSection().smf30TimeOnZiipSeconds() 
+                        * r30.performanceSection().smf30snf() / 256;
                 
             }
             if (r30.ioActivitySection() != null)
@@ -139,9 +139,9 @@ public class sample4
          */
         Optional<Double> getCpuMsPerIO()
         {
-        	return excps > 0 ? 
-        			Optional.of((cpTime + normalizedZiipTime) * 1000  / excps)
-        			: Optional.empty();
+            return excps > 0 ? 
+                    Optional.of((cpTime + normalizedZiipTime) * 1000  / excps)
+                    : Optional.empty();
         }
         
         int    count                 = 0;

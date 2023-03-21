@@ -41,7 +41,7 @@ For each EXCP section, we check whether the DDNAME is "STEPLIB". If it is we att
 ```
 if (excp.smf30ddn().equals("STEPLIB"))
 {
-    jobStepPrograms.add(new JobStepProgram(r30));	
+    jobStepPrograms.add(new JobStepProgram(r30));    
 }
 ```
 
@@ -55,7 +55,7 @@ Exactly the same code is used to create a complex key for a HashMap. You can use
 
 ```
 private static class JobStepProgram
-{	        
+{            
     private String jobname;
     private int stepnumber;
     private String stepname;

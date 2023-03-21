@@ -39,28 +39,28 @@ public class sample6
         
         try (SmfRecordReader reader = SmfRecordReader.fromName(args[0])) 
         {
-        	// SMF 30 subtype 4 = Step End records
-        	reader.include(30, 4);
-        	
-        	for (SmfRecord record : reader)
-        	{
-        		Smf30Record r30 = Smf30Record.from(record);
-        		String programName = r30.identificationSection().smf30pgm();
-        		
-        		// get the target map based on whether this record is part of group A or B
-        		Map<String, ProgramStatistics> target = isA(r30) ? aPrograms : bPrograms;
-        	
-        		// Find the entry for the program name and accumulate the data
-        		ProgramStatistics program = target.get(programName);
-        		
-        		if (program == null)
-        		{
-        			// entry doesn't exist - create new and add to map
-        			program = new ProgramStatistics(programName);
-        			target.put(programName, program);
-        		}            
-    			program.accumulateData(r30);
-        	}
+            // SMF 30 subtype 4 = Step End records
+            reader.include(30, 4);
+            
+            for (SmfRecord record : reader)
+            {
+                Smf30Record r30 = Smf30Record.from(record);
+                String programName = r30.identificationSection().smf30pgm();
+                
+                // get the target map based on whether this record is part of group A or B
+                Map<String, ProgramStatistics> target = isA(r30) ? aPrograms : bPrograms;
+            
+                // Find the entry for the program name and accumulate the data
+                ProgramStatistics program = target.get(programName);
+                
+                if (program == null)
+                {
+                    // entry doesn't exist - create new and add to map
+                    program = new ProgramStatistics(programName);
+                    target.put(programName, program);
+                }            
+                program.accumulateData(r30);
+            }
         }
         writeReport(aPrograms, bPrograms);
     }
@@ -73,8 +73,8 @@ public class sample6
      */
     private static boolean isA(Smf30Record r30)
     {
-    	final LocalDateTime boundary = LocalDateTime.of(2019, 05, 24, 0, 0);
-    	return r30.smfDateTime().isBefore(boundary);   	
+        final LocalDateTime boundary = LocalDateTime.of(2019, 05, 24, 0, 0);
+        return r30.smfDateTime().isBefore(boundary);       
     }
     
     /**
@@ -86,13 +86,13 @@ public class sample6
      *            The map of Program Names to Program Data for group B
      */
     private static void writeReport(
-    		Map<String, ProgramStatistics> aPrograms, 
-    		Map<String, ProgramStatistics> bPrograms)
+            Map<String, ProgramStatistics> aPrograms, 
+            Map<String, ProgramStatistics> bPrograms)
     {
-    	// format strings for heading and detail lines.
-    	String headerFormatString =  "%n%-8s %8s %14s %14s %14s %14s %14s %14s %14s%n";
-    	String detailFormatString =  "%-8s %,8d %14s %14s %14s %,14d %13.1f%% %13.1f%% %14s%n";
-    	String changeFormatString =  "%-77s %14s %14s %14s%n%n";
+        // format strings for heading and detail lines.
+        String headerFormatString =  "%n%-8s %8s %14s %14s %14s %14s %14s %14s %14s%n";
+        String detailFormatString =  "%-8s %,8d %14s %14s %14s %,14d %13.1f%% %13.1f%% %14s%n";
+        String changeFormatString =  "%-77s %14s %14s %14s%n%n";
 
         // Headings
         System.out.format(headerFormatString, 
@@ -111,11 +111,11 @@ public class sample6
             .limit(100) // take top 100
             .forEachOrdered(programAInfo ->
             {
-            	// Get matching B statistics
+                // Get matching B statistics
                 ProgramStatistics programBInfo = bPrograms.get(programAInfo.getName());
                 
                 System.out.format("%-8s%n", 
-                		programAInfo.getName()); // Program name
+                        programAInfo.getName()); // Program name
                 
                 // write Group A detail line
                 System.out.format(detailFormatString, 
@@ -128,8 +128,8 @@ public class sample6
                     programAInfo.getZiipPct(), 
                     programAInfo.getZiipOnCpPct(), 
                     programAInfo.getCpuMsPerIO()
-	            		.map(value -> String.format("%.3f",value))
-	            		.orElse("") );               
+                        .map(value -> String.format("%.3f",value))
+                        .orElse("") );               
                 
                 // write Group B detail line
                 System.out.format(detailFormatString, 
@@ -142,8 +142,8 @@ public class sample6
                     programBInfo.getZiipPct(), 
                     programBInfo.getZiipOnCpPct(), 
                     programBInfo.getCpuMsPerIO()
-	            		.map(value -> String.format("%.3f",value))
-	            		.orElse("") );
+                        .map(value -> String.format("%.3f",value))
+                        .orElse("") );
                 
                 // write differences
                 // Differences are type Optional<Double>. If values are zero
@@ -153,14 +153,14 @@ public class sample6
                 System.out.format(changeFormatString, 
                     "Change:",
                     programBInfo.getZiipPctChange(programAInfo)
-                    		.map(value -> String.format("%+.1f%%",value))
-                    		.orElse(""),
+                            .map(value -> String.format("%+.1f%%",value))
+                            .orElse(""),
                     programBInfo.getZiipOnCpPctChange(programAInfo)
-                    		.map(value -> String.format("%+.1f%%",value))
-                    		.orElse(""),
+                            .map(value -> String.format("%+.1f%%",value))
+                            .orElse(""),
                     programBInfo.getCpuMsPerIOChange(programAInfo)
-                    		.map(value -> String.format("%+.0f%%",value))
-                    		.orElse("") );
+                            .map(value -> String.format("%+.0f%%",value))
+                            .orElse("") );
             });
     }
     
@@ -169,11 +169,11 @@ public class sample6
      */
     private static class ProgramStatistics
     {
-    	public ProgramStatistics(String name)
-    	{
-    		this.name = name;	
-    	}
-    	
+        public ProgramStatistics(String name)
+        {
+            this.name = name;    
+        }
+        
         /**
          * Add information from a SMF 30 record.
          * 
@@ -185,7 +185,7 @@ public class sample6
             // One step can have many SMF records so we might get called multiple times
             // for the same job step, but some of the SMF sections will occur only
             // once per step e.g. ProcessorAccountingSection.
-        	
+            
             if (r30.processorAccountingSection() != null)
             {
                 count++; // pick a section that only occurs once and use to count job steps
@@ -199,8 +199,8 @@ public class sample6
                 // Assume a Performance section will always accompany the 
                 // Processor Accounting section.
                 normalizedZiipTime += 
-                	r30.processorAccountingSection().smf30TimeOnZiipSeconds() 
-                		* r30.performanceSection().smf30snf() / 256;
+                    r30.processorAccountingSection().smf30TimeOnZiipSeconds() 
+                        * r30.performanceSection().smf30snf() / 256;
                 
             }
             if (r30.ioActivitySection() != null)
@@ -209,33 +209,33 @@ public class sample6
             }
         }
                
-		String getName() {
-			return name;
-		}
+        String getName() {
+            return name;
+        }
         
         int getCount() {
-			return count;
-		}
+            return count;
+        }
 
-		double getCpTime() {
-			return cpTime;
-		}
+        double getCpTime() {
+            return cpTime;
+        }
 
-		double getZiipOnCpTime() {
-			return ziipOnCpTime;
-		}
+        double getZiipOnCpTime() {
+            return ziipOnCpTime;
+        }
 
-		double getZiipTime() {
-			return ziipTime;
-		}
+        double getZiipTime() {
+            return ziipTime;
+        }
 
-		double getNormalizedZiipTime() {
-			return normalizedZiipTime;
-		}
+        double getNormalizedZiipTime() {
+            return normalizedZiipTime;
+        }
 
-		long getExcps() {
-			return excps;
-		}
+        long getExcps() {
+            return excps;
+        }
         
         /**
          * Calculate CPU time (CP time + normalized zIIP time) in milliseconds
@@ -245,9 +245,9 @@ public class sample6
          */
         Optional<Double> getCpuMsPerIO()
         {
-        	return excps > 0 ? 
-        			Optional.of((cpTime + normalizedZiipTime) * 1000  / excps)
-        			: Optional.empty();
+            return excps > 0 ? 
+                    Optional.of((cpTime + normalizedZiipTime) * 1000  / excps)
+                    : Optional.empty();
         }
         
         /**
@@ -261,20 +261,20 @@ public class sample6
          */
         Optional<Double> getCpuMsPerIOChange(ProgramStatistics prev)
         {
-        	Optional<Double> oldvalue = prev.getCpuMsPerIO();
-           	Optional<Double> newvalue = this.getCpuMsPerIO();
-           	
-           	return (oldvalue.isPresent() 
-           			&& newvalue.isPresent() 
-           			&& oldvalue.get() > 0 
-           			&& newvalue.get() > 0) ?         	
-	        			Optional.of(((newvalue.get() / oldvalue.get()) - 1) * 100)
-	        			: Optional.empty();
+            Optional<Double> oldvalue = prev.getCpuMsPerIO();
+               Optional<Double> newvalue = this.getCpuMsPerIO();
+               
+               return (oldvalue.isPresent() 
+                       && newvalue.isPresent() 
+                       && oldvalue.get() > 0 
+                       && newvalue.get() > 0) ?             
+                        Optional.of(((newvalue.get() / oldvalue.get()) - 1) * 100)
+                        : Optional.empty();
         }
         
         double getZiipPct()
         {
-        	return (cpTime + normalizedZiipTime) > 0 ? normalizedZiipTime / (cpTime + normalizedZiipTime) * 100 : 0;
+            return (cpTime + normalizedZiipTime) > 0 ? normalizedZiipTime / (cpTime + normalizedZiipTime) * 100 : 0;
         }
         
         /**
@@ -288,14 +288,14 @@ public class sample6
          */
         Optional<Double> getZiipPctChange(ProgramStatistics prev)
         {
-        	return (this.getZiipPct() > 0 || prev.getZiipPct() > 0) ? 
-        			Optional.of(this.getZiipPct() - prev.getZiipPct())
-        			: Optional.empty();
+            return (this.getZiipPct() > 0 || prev.getZiipPct() > 0) ? 
+                    Optional.of(this.getZiipPct() - prev.getZiipPct())
+                    : Optional.empty();
         }
         
         double getZiipOnCpPct()
         {
-        	return (cpTime + normalizedZiipTime) > 0 ? ziipOnCpTime / (cpTime + normalizedZiipTime) * 100 : 0;
+            return (cpTime + normalizedZiipTime) > 0 ? ziipOnCpTime / (cpTime + normalizedZiipTime) * 100 : 0;
         }
         
         /**
@@ -309,13 +309,13 @@ public class sample6
          */
         Optional<Double> getZiipOnCpPctChange(ProgramStatistics prev)
         {
-        	return (this.getZiipOnCpPct() > 0 || prev.getZiipOnCpPct() > 0) ? 
-        			Optional.of(this.getZiipOnCpPct() - prev.getZiipOnCpPct()) 
-        			: Optional.empty();
+            return (this.getZiipOnCpPct() > 0 || prev.getZiipOnCpPct() > 0) ? 
+                    Optional.of(this.getZiipOnCpPct() - prev.getZiipOnCpPct()) 
+                    : Optional.empty();
         }
 
-		String name;
-		int    count                 = 0;
+        String name;
+        int    count                 = 0;
         double cpTime                = 0;
         double ziipOnCpTime          = 0;
         double ziipTime              = 0;        

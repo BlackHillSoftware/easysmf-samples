@@ -20,7 +20,7 @@ public class JobsByJobname
             System.out.println("<input-name> can be filename, //DD:DDNAME or //'DATASET.NAME'");          
             return;
         }
-    	
+        
         // A map of Job Names to JobData entries to collect information about each
         // group of jobs.
 
@@ -28,28 +28,28 @@ public class JobsByJobname
 
         // SmfRecordReader.fromName(...) accepts a filename, a DD name in the
         // format //DD:DDNAME or MVS dataset name in the form //'DATASET.NAME'
-    	
+        
         try (SmfRecordReader reader = SmfRecordReader.fromName(args[0]))                
         {
-        	// SMF 30 subtype 5 = Job End records
-        	reader.include(30,5);
-        	
-        	for (SmfRecord record : reader)
-        	{
-        		Smf30Record r30 = Smf30Record.from(record); 
-        	
+            // SMF 30 subtype 5 = Job End records
+            reader.include(30,5);
+            
+            for (SmfRecord record : reader)
+            {
+                Smf30Record r30 = Smf30Record.from(record); 
+            
                 // Optionally filter here, e.g. to include only jobs running in job class A:
                 // if (r30.identificationSection().smf30cl8().equals("A"))
                 // {
 
-        		// computeIfAbsent : returns an existing entry or a new entry created 
-        		// using the supplied function  
+                // computeIfAbsent : returns an existing entry or a new entry created 
+                // using the supplied function  
                 JobData jobentry = jobs
-                	.computeIfAbsent(
-                			r30.identificationSection().smf30jbn(), // jobname
-                			x -> new JobData());
+                    .computeIfAbsent(
+                            r30.identificationSection().smf30jbn(), // jobname
+                            x -> new JobData());
                 jobentry.accumulateData(r30);                 
-        	}
+            }
         }
         writeReport(jobs);
     }

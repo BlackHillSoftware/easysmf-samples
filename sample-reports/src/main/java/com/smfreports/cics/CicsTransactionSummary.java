@@ -33,35 +33,35 @@ public class CicsTransactionSummary
         
         for (String name : args)
         {
-	        try (SmfRecordReader reader = SmfRecordReader.fromName(name)) 
-	        {     
-	            reader.include(110, Smf110Record.SMFMNSTY);
-	            for (SmfRecord record : reader) 
-	            {
-	                Smf110Record r110 = Smf110Record.from(record);
-	                
-	                if (r110.haveDictionary()) 
-	                {
-	                    Map<String, TransactionData> applidTransactions = 
-	                        applids.computeIfAbsent(
-	                            r110.mnProductSection().smfmnprn(), 
-	                            transactions -> new HashMap<String, TransactionData>());
-	
-	                    for (PerformanceRecord txData : r110.performanceRecords()) 
-	                    {
-	                        String txName = txData.getField(Field.TRAN);
-	                        txCount++;
-	                        applidTransactions.computeIfAbsent(
-	                                txName, 
-	                                x -> new TransactionData(txName)).add(txData);
-	                    }
-	                } 
-	                else 
-	                {
-	                    noDictionary++;
-	                }
-	            }
-	        }
+            try (SmfRecordReader reader = SmfRecordReader.fromName(name)) 
+            {     
+                reader.include(110, Smf110Record.SMFMNSTY);
+                for (SmfRecord record : reader) 
+                {
+                    Smf110Record r110 = Smf110Record.from(record);
+                    
+                    if (r110.haveDictionary()) 
+                    {
+                        Map<String, TransactionData> applidTransactions = 
+                            applids.computeIfAbsent(
+                                r110.mnProductSection().smfmnprn(), 
+                                transactions -> new HashMap<String, TransactionData>());
+    
+                        for (PerformanceRecord txData : r110.performanceRecords()) 
+                        {
+                            String txName = txData.getField(Field.TRAN);
+                            txCount++;
+                            applidTransactions.computeIfAbsent(
+                                    txName, 
+                                    x -> new TransactionData(txName)).add(txData);
+                        }
+                    } 
+                    else 
+                    {
+                        noDictionary++;
+                    }
+                }
+            }
         }
         
         writeReport(applids);

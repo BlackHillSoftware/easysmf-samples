@@ -18,13 +18,13 @@ public class EasySmfSkeleton
         }
         
         try (SmfRecordReader reader = SmfRecordReader.fromName(args[0]))
-    	{
+        {
             int count = 0;
             for (SmfRecord record : reader)
             {
                 count++;
             }
             System.out.format("Read %,d records%n", count);
-    	}
+        }
     }
 }

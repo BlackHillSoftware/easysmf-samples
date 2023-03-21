@@ -20,40 +20,40 @@ public class sample1
         
         try (SmfRecordReader reader = SmfRecordReader.fromName(args[0])) 
         {
-        	// Write headings
-        	System.out.format("%s,%s,%s,%s,%s,%s,%s%n",
+            // Write headings
+            System.out.format("%s,%s,%s,%s,%s,%s,%s%n",
                     "Time", 
                     "System",
                     "Job",
                     "Job Number",
                     "CP Time",
-                	"zIIP Time",
-                	"zIIP on CP"
-                	);
-        	
-        	reader.include(30,5); // SMF type 30 subtype 5 : Job End records
-        	
-        	// read and process records
-        	for (SmfRecord record : reader)
-        	{
-        		// create a type 30 record 
-        		Smf30Record r30 = Smf30Record.from(record);
-        		
-        		// if Processor Accounting section exists, print various data
-        		if (r30.processorAccountingSection() != null)
-        		{
+                    "zIIP Time",
+                    "zIIP on CP"
+                    );
+            
+            reader.include(30,5); // SMF type 30 subtype 5 : Job End records
+            
+            // read and process records
+            for (SmfRecord record : reader)
+            {
+                // create a type 30 record 
+                Smf30Record r30 = Smf30Record.from(record);
+                
+                // if Processor Accounting section exists, print various data
+                if (r30.processorAccountingSection() != null)
+                {
                     System.out.format("%s,%s,%s,%s,%.2f,%.2f,%.2f%n",                                  
                             r30.smfDateTime(), 
                             r30.system(),
                             r30.identificationSection().smf30jbn(),
                             r30.identificationSection().smf30jnm(),
                             r30.processorAccountingSection().smf30cptSeconds()
-                        		+ r30.processorAccountingSection().smf30cpsSeconds(),
-                        	r30.processorAccountingSection().smf30TimeOnZiipSeconds(),
-                        	r30.processorAccountingSection().smf30TimeZiipOnCpSeconds()
-                        	);
-        		}
-        	}                                                                           
+                                + r30.processorAccountingSection().smf30cpsSeconds(),
+                            r30.processorAccountingSection().smf30TimeOnZiipSeconds(),
+                            r30.processorAccountingSection().smf30TimeZiipOnCpSeconds()
+                            );
+                }
+            }                                                                           
         }
         System.out.println("Done");
     }

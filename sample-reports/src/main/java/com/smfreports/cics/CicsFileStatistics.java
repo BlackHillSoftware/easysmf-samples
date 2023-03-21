@@ -18,7 +18,7 @@ public class CicsFileStatistics
             System.out.println("<input-name> can be filename, //DD:DDNAME or //'DATASET.NAME'");          
             return;
         }
-    	
+        
         Map<String, Map<String, FileData>> applids = 
                 new HashMap<String, Map<String, FileData>>();
 

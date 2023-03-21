@@ -22,7 +22,7 @@ We use a simple routine to decide whether a particular record belongs to group A
 private static boolean isA(Smf30Record r30)
 {
     final LocalDateTime boundary = LocalDateTime.of(2019, 05, 24, 0, 0);
-    return r30.smfDateTime().isBefore(boundary);   	
+    return r30.smfDateTime().isBefore(boundary);       
 }
 ```
 and select the A or B group based on the result:

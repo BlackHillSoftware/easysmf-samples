@@ -46,13 +46,13 @@ public class PeakR4HAJobs
             System.out.println("<input-name> can be filename, //DD:DDNAME or //'DATASET.NAME'");          
             return;
         }
-    	
+        
         // Create nested Maps so we have a hierarchy of 
         // System -> Hour -> SMF70LAC
         Map< String, 
             Map< LocalDateTime, 
                 HourlyLac > > 
-        	systemHourLAC 
+            systemHourLAC 
                     = new HashMap<String, Map<LocalDateTime, HourlyLac>>();
         
         // System -> Hour -> Jobname -> Totals
@@ -60,20 +60,20 @@ public class PeakR4HAJobs
             Map< LocalDateTime, 
                 Map< String, 
                     JobnameTotals > > > 
-        	systemHourJobnameTotals 
+            systemHourJobnameTotals 
                         = new HashMap<String, Map<LocalDateTime, Map<String, JobnameTotals>>>();
         
         // SmfRecordReader.fromName(...) accepts a filename, a DD name in the
         // format //DD:DDNAME or MVS dataset name in the form //'DATASET.NAME'
-    	
+        
         try (SmfRecordReader reader = SmfRecordReader.fromName(args[0]))
         { 
-        	reader
-        		.include(70,1)
-        		.include(30,2)
-        		.include(30,3); 
-        	
-        	// Accumulate type 30 and type 70 data
+            reader
+                .include(70,1)
+                .include(30,2)
+                .include(30,3); 
+            
+            // Accumulate type 30 and type 70 data
             for (SmfRecord record : reader)                                                     
             {
                 switch (record.recordType())
@@ -88,7 +88,7 @@ public class PeakR4HAJobs
                             // computeIfAbsent creates a new entry if the key is not found,
                             // otherwise returns the existing entry
                         
-                        	// Map of systems
+                            // Map of systems
                             .computeIfAbsent(system, key -> new HashMap<>())
                             // Nested map of hour -> hourly LAC for this system
                             .computeIfAbsent(hour, key -> new HourlyLac(system, hour))
@@ -120,9 +120,9 @@ public class PeakR4HAJobs
         
         // get a sorted list of system names
         List<String> systems = systemHourLAC.keySet().stream()
-        		.sorted()
-        		.collect(Collectors.toList());
-        		
+                .sorted()
+                .collect(Collectors.toList());
+                
         for (String system: systems)
         {
             writeReport(system, systemHourLAC.get(system), systemHourJobnameTotals.get(system));
@@ -131,7 +131,7 @@ public class PeakR4HAJobs
     }
 
     private static void writeReport(
-    		String system,
+            String system,
             Map<LocalDateTime, HourlyLac> hourlyLAC,
             Map<LocalDateTime, Map<String, JobnameTotals>> hourlyJobTotals) 
     {
@@ -167,8 +167,8 @@ public class PeakR4HAJobs
                                
                 // Calculate total CP time for all jobs during the 4 hours
                 double fourHourTotalCpTime = 
-                	fourHourJobs
-                		.stream()
+                    fourHourJobs
+                        .stream()
                         .collect(Collectors.summingDouble(JobnameTotals::getCpTime));
                 
                 report4HourTopCpJobs(fourHourMSU, fourHourJobs, fourHourTotalCpTime);
@@ -176,16 +176,16 @@ public class PeakR4HAJobs
             });
     }
 
-	private static void report4HourTopCpJobs(long msuvalue, List<JobnameTotals> fourHourJobs, double fourHourTotalCpTime) {
-		// Heading
+    private static void report4HourTopCpJobs(long msuvalue, List<JobnameTotals> fourHourJobs, double fourHourTotalCpTime) {
+        // Heading
         System.out.format("%n        %-12s %11s %12s%n", 
-        		"Jobname", "CPU%", "Est. MSU");
+                "Jobname", "CPU%", "Est. MSU");
         
         // Build and print detail lines      
         fourHourJobs
-        	.stream()
-        	// Each job name might have entries from multiple hours
-        	// Group by job name, and calculate sum of CP time for each job name 
+            .stream()
+            // Each job name might have entries from multiple hours
+            // Group by job name, and calculate sum of CP time for each job name 
             .collect(
                 Collectors.groupingBy(JobnameTotals::getJobname, 
                         Collectors.summingDouble(JobnameTotals::getCpTime)))
@@ -198,24 +198,24 @@ public class PeakR4HAJobs
             // write detail lines
             .forEachOrdered(jobCpTime -> 
                 System.out.format("        %-12s %10.1f%% %12.1f%n", 
-                		// job name
+                        // job name
                         jobCpTime.getKey(), 
                         // Average job CPU %
                         jobCpTime.getValue() / Duration.ofHours(4).getSeconds() * 100,
                         // Estimated MSU: 4 hour job CPU time / 4 hour all CPU time * 4 hour MSU 
                         jobCpTime.getValue() / fourHourTotalCpTime * msuvalue));
-	}
+    }
 
-	private static void report4HourTopZiipOnCpJobs(long msuvalue, List<JobnameTotals> fourHourJobs, double fourHourTotalCpTime) {
-		// Heading
+    private static void report4HourTopZiipOnCpJobs(long msuvalue, List<JobnameTotals> fourHourJobs, double fourHourTotalCpTime) {
+        // Heading
         System.out.format("%n%n        %-12s %11s %12s%n", 
-        		"Jobname", "zIIP On CP%", "Est. MSU");
+                "Jobname", "zIIP On CP%", "Est. MSU");
         
         // Build and print detail lines      
         fourHourJobs
-        	.stream()
-        	// Each job name might have entries from multiple hours
-        	// Group by job name, and calculate sum of zIIP on CP time for each job name 
+            .stream()
+            // Each job name might have entries from multiple hours
+            // Group by job name, and calculate sum of zIIP on CP time for each job name 
             .collect(
                 Collectors.groupingBy(JobnameTotals::getJobname, 
                         Collectors.summingDouble(JobnameTotals::getZiipOnCpTime)))
@@ -228,13 +228,13 @@ public class PeakR4HAJobs
             // write detail lines
             .forEachOrdered(jobCpTime -> 
                 System.out.format("        %-12s %10.1f%% %12.1f%n", 
-                		// job name
+                        // job name
                         jobCpTime.getKey(), 
                         // Average job CPU %
                         jobCpTime.getValue() / Duration.ofHours(4).getSeconds() * 100,
                         // Estimated MSU: 4 hour zIIP on CP time / 4 hour all CPU time * 4 hour MSU 
                         jobCpTime.getValue() / fourHourTotalCpTime * msuvalue));
-	}
+    }
     
     /**
      * A class to accumulate information for jobs with a particular jobname 
@@ -245,11 +245,11 @@ public class PeakR4HAJobs
         private double cpTime = 0;
         private double ziipOnCpTime = 0;
         private String jobname;
-    	
-    	/**
-    	 * Constructor
-    	 * @param jobname
-    	 */
+        
+        /**
+         * Constructor
+         * @param jobname
+         */
         public JobnameTotals(String jobname)
         {
             this.jobname = jobname;
@@ -261,10 +261,10 @@ public class PeakR4HAJobs
          */
         public void add(Smf30Record r30)
         {
-        	if (!jobname.equals(r30.identificationSection().smf30jbn()))		
-        	{
-        		throw new IllegalArgumentException("Wrong job name: " + r30.identificationSection().smf30jbn());
-        	}
+            if (!jobname.equals(r30.identificationSection().smf30jbn()))        
+            {
+                throw new IllegalArgumentException("Wrong job name: " + r30.identificationSection().smf30jbn());
+            }
             ProcessorAccountingSection pacct = r30.processorAccountingSection();
             if (pacct != null)
             {
@@ -278,7 +278,7 @@ public class PeakR4HAJobs
                     + pacct.smf30hptSeconds()
                     ;
                 ziipOnCpTime = ziipOnCpTime 
-                	+ pacct.smf30TimeZiipOnCpSeconds();
+                    + pacct.smf30TimeZiipOnCpSeconds();
             }
         }
         
@@ -309,10 +309,10 @@ public class PeakR4HAJobs
 
         public LocalDateTime getHour() { return hour; }
         
-    	/**
-    	 * Accumulate information from a SMF 70 record.
-    	 * @param r70 the SMF type 70 record 
-    	 */
+        /**
+         * Accumulate information from a SMF 70 record.
+         * @param r70 the SMF type 70 record 
+         */
         public void add(Smf70Record r70)
         {
             smf70lac += r70.cpuControlSection().smf70lac() * r70.productSection().smf70sam();

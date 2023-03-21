@@ -24,7 +24,7 @@ public class SmfSearch
 
         // SmfRecordReader.fromName(...) accepts a filename, a DD name in the
         // format //DD:DDNAME or MVS dataset name in the form //'DATASET.NAME'
-    	
+        
         try (SmfRecordReader reader = SmfRecordReader.fromName(args[1]))
         { 
             reader.include(15)

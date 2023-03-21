@@ -16,7 +16,7 @@ The Stream API involves a sequence of steps, where the output of each step is pa
 
 ```
 reader
-    .include(14)            	
+    .include(14)                
     .include(15)
     .stream()
     .map(record -> Smf14Record.from(record)) 
