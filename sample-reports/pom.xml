@@ -3,7 +3,7 @@
 
 	<groupId>com.smfreports</groupId>
 	<artifactId>sample-reports</artifactId>
-	<version>2.1.0</version>
+	<version>2.2.0</version>
 	<packaging>jar</packaging>
 
 	<name>EasySMF:JE Samples</name>
@@ -19,7 +19,6 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<easysmfVersion>2.0.0</easysmfVersion>
 	</properties>
 
 	<build>
@@ -46,7 +45,7 @@
 							<goal>copy-dependencies</goal>
 						</goals>
 						<configuration>
-							<outputDirectory>${project.build.directory}</outputDirectory>
+							<outputDirectory>${project.build.directory}/lib</outputDirectory>
 							<includeScope>runtime</includeScope>
 						</configuration>
 					</execution>
@@ -59,7 +58,7 @@
 		<dependency>
 			<groupId>com.blackhillsoftware.smf</groupId>
 			<artifactId>easysmf-je</artifactId>
-			<version>${easysmfVersion}</version>
+			<version>2.0.1</version>
 		</dependency>
 	</dependencies>
 </project>

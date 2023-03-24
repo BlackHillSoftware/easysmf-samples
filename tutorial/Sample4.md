@@ -1,6 +1,6 @@
 ## Sample 4: Group and Summarize SMF data
 
-[Sample 4 Source Code: sample4.java](./src/sample4.java)
+[Sample 4 Source Code: sample4.java](./src/main/java/Sample4.java)
 
 Sample 4 shows how group and summarize SMF data in Java.
 
@@ -23,7 +23,7 @@ We attempt to get an existing entry from the Map for the program name. If it is 
 ```
 String programName = r30.identificationSection().smf30pgm();
 ProgramStatistics program = programs.get(programName);
-        		
+                
 if (program == null)
 {
     program = new ProgramStatistics();
@@ -43,7 +43,7 @@ private static class ProgramStatistics
 {
     ...
     public void accumulateData(Smf30Record r30)
-    {        	
+    {            
         if (r30.processorAccountingSection() != null)
         {
             count++;
@@ -90,4 +90,4 @@ programs.entrySet().stream()
 
 The principles used in this sample can be adapted to many different situations, simply by changing the data accumulated in the Statistics class and the data used for the key in the Map.
 
-[Sample 4 Source Code: sample4.java](./src/sample4.java)
+[Sample 4 Source Code: sample4.java](./src/main/java/Sample4.java)

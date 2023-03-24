@@ -32,7 +32,7 @@ import com.blackhillsoftware.smf.smf30.Smf30Record;
 public class UserKeyCommon 
 {
     public static void main(String[] args) throws IOException
-    { 	
+    {     
         if (args.length < 1)
         {
             System.out.println("Usage: UserKeyCommon <input-name>");
@@ -42,7 +42,7 @@ public class UserKeyCommon
         
         // SmfRecordReader.fromName(...) accepts a filename, a DD name in the
         // format //DD:DDNAME or MVS dataset name in the form //'DATASET.NAME'
-    	
+        
         try (SmfRecordReader reader = SmfRecordReader.fromName(args[0]))                
         {
             boolean foundAuditEnabled = false;

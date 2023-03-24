@@ -22,7 +22,7 @@ public class PrimeShiftDailyCpu
             System.out.println("<input-name> can be filename, //DD:DDNAME or //'DATASET.NAME'");          
             return;
         }
-    	
+        
         // define start and end times
         LocalTime primestart = LocalTime.of(8, 30);
         LocalTime primeend = LocalTime.of(17, 30);
@@ -54,7 +54,7 @@ public class PrimeShiftDailyCpu
         
         // SmfRecordReader.fromName(...) accepts a filename, a DD name in the
         // format //DD:DDNAME or MVS dataset name in the form //'DATASET.NAME'
-    	
+        
         try (SmfRecordReader reader = SmfRecordReader.fromName(args[0]))
         { 
             reader

@@ -1,6 +1,6 @@
 ## Sample 5: Repeating Record Sections
 
-[Sample 5 Source Code: sample5.java](./src/sample5.java)
+[Sample 5 Source Code: sample5.java](./src/main/java/Sample5.java)
 
 When a section in a SMF record can be repeated, the sections will be returned in a `List<T>`.
 Sometimes a record will have no instances of a particular section - in that case an empty list is returned. 
@@ -41,7 +41,7 @@ For each EXCP section, we check whether the DDNAME is "STEPLIB". If it is we att
 ```
 if (excp.smf30ddn().equals("STEPLIB"))
 {
-    jobStepPrograms.add(new JobStepProgram(r30));	
+    jobStepPrograms.add(new JobStepProgram(r30));    
 }
 ```
 
@@ -55,7 +55,7 @@ Exactly the same code is used to create a complex key for a HashMap. You can use
 
 ```
 private static class JobStepProgram
-{	        
+{            
     private String jobname;
     private int stepnumber;
     private String stepname;
@@ -115,4 +115,4 @@ jobStepPrograms.stream()
             entry.getProgramName()));
 ```
 
-[Sample 5 Source Code: sample5.java](./src/sample5.java)
+[Sample 5 Source Code: sample5.java](./src/main/java/Sample5.java)

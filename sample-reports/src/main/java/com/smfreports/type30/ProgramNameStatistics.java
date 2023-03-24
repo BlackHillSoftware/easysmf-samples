@@ -15,7 +15,7 @@ public class ProgramNameStatistics
             System.out.println("<input-name> can be filename, //DD:DDNAME or //'DATASET.NAME'");          
             return;
         }
-    	
+        
         Map<String, ProgramData> programs = new HashMap<String, ProgramData>();
 
         // SmfRecordReader.fromName(...) accepts a filename, a DD name in the
@@ -71,7 +71,7 @@ public class ProgramNameStatistics
     }
 
     private static class ProgramData
-    {	
+    {    
         public ProgramData(String programName)
         {
             name = programName;

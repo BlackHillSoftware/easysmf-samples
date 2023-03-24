@@ -1,3 +1,6 @@
+# This is a script to manually compile a Java program.
+# We strongly recommend you use Apache Maven to build the samples 
+# instead.
 #
 # Instructions
 #
@@ -7,7 +10,7 @@
 # 3) Ensure this file is executable:
 #    chmod +x runsample
 # 4) Run the script passing the sample file as an argument e.g.:
-#    ./compilesample.sh java/easysmf-je-VERSION/samples/source/com/blackhillsoftware/samples/RecordCount.java
+#    ./compilesample.sh sample-reports/src/main/java/com/smfreports/RecordCount.java
 #
 # This sample assumes that required Java environment variables e.g. JAVA_HOME 
 # were set by the Java installation process.
@@ -16,4 +19,4 @@
 export EASYSMFLOCATION="./java/easysmf-je-VERSION"
 export TARGET="./java/target"
 
-javac -cp "$EASYSMFLOCATION/jar/*" -d "$TARGET" "$1"
+javac -cp "$EASYSMFLOCATION/jar/*:$EASYSMFLOCATION/samples/jar/lib/*" -d "$TARGET" "$1"

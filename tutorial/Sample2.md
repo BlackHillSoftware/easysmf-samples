@@ -1,6 +1,6 @@
 ## Sample 2: Filter and print SMF data
 
-[Sample 2 Source Code: sample2.java](./src/sample2.java)
+[Sample 2 Source Code: sample2.java](./src/main/java/Sample2.java)
 
 Sample 2 shows how you can use Java Streams to filter and process SMF data.
 
@@ -16,7 +16,7 @@ The Stream API involves a sequence of steps, where the output of each step is pa
 
 ```
 reader
-    .include(14)            	
+    .include(14)                
     .include(15)
     .stream()
     .map(record -> Smf14Record.from(record)) 
@@ -38,4 +38,4 @@ to the next steps.
 - **limit** stop after this number of matches.
 - **forEach** process each record. In this case, print the output.
 
-[Sample 2 Source Code: sample2.java](./src/sample2.java)
+[Sample 2 Source Code: sample2.java](./src/main/java/Sample2.java)

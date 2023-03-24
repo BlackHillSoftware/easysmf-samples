@@ -3,7 +3,7 @@
 This repository contains sample code for EasySMF:JE.
 
 EasySMF:JE is a commercial product developed by [Black Hill Software](https://www.blackhillsoftware.com) which provides a Java API to map z/OS SMF records. To run these samples, you will require the EasySMF:JE jar file and a EasySMF:JE license key.
-### 30 day Trial ###
+## 30 day Trial
 
 A free, 30 day trial is available. You can get a trial key here: [EasySMF 30 Day Trial](https://www.blackhillsoftware.com/30-day-trial/)
 
@@ -24,11 +24,11 @@ The samples are set up to build using [Apache Maven](https://maven.apache.org/).
 
 The first time you run Maven it will download many packages used by Maven to build the project, plus any dependencies for the project itself. These are cached on your machine so they don't need to be downloaded each time.
 
-The output will be a jar file in the "target" subdirectory e.g. ```sample-reports/target```. Additional jar files for the project dependencies will also be copied to the target directory.
+The output will be a jar file in the "target" subdirectory e.g. ```sample-reports/target```. Additional jar files for the project dependencies will be copied to the target/lib directory.
 
-## Running the samples ##
+## Running the samples
 
-### Windows ###
+### Windows
 
 1. Set the environment variable for the EasySMF key file e.g.
 
@@ -36,14 +36,14 @@ The output will be a jar file in the "target" subdirectory e.g. ```sample-report
 
 1. Run the program
 
-    ```java -cp  sample-reports/target/* com.smfreports.RecordCount smfdata.smf```
+    ```java -cp sample-reports/target/*;sample-reports/target/lib/* com.smfreports.RecordCount smfdata.smf```
     
     where
-    - ```-cp sample-reports/target/*``` : sets the CLASSPATH to the output directory containing the output jar file and dependencies
+    - ```-cp sample-reports/target/*;sample-reports/target/lib/*``` : sets the CLASSPATH to the output directories containing the output jar file and dependencies
     - ```com.smfreports.RecordCount``` : is the full name including the package of the class to run
     - ```smfdata.smf``` : is the file containing SMF data
 
-### Linux ###
+### Linux
 
 1. Set the environment variable for the EasySMF key file e.g.
 
@@ -51,14 +51,14 @@ The output will be a jar file in the "target" subdirectory e.g. ```sample-report
 
 1. Run the program
 
-    ```java -cp 'sample-reports/target/*' com.smfreports.RecordCount smfdata.smf```
+    ```java -cp 'sample-reports/target/*:sample-reports/target/lib/*' com.smfreports.RecordCount smfdata.smf```
     
     where
-    - ```-cp 'sample-reports/target/*'``` : sets the CLASSPATH to the output directory containing the output jar file and dependencies
+    - ```-cp 'sample-reports/target/*:sample-reports/target/lib/*'``` : sets the CLASSPATH to the output directories containing the output jar file and dependencies
     - ```com.smfreports.RecordCount``` : is the full name including the package of the class to run
     - ```smfdata.smf``` : is the file containing SMF data
 
-### Runnable Jars ###
+### Runnable Jars
 
 Some of the projects specify a **mainClass** in the pom.xml file. This creates a runnable jar where you can specify the jar name rather than the class you want to run. The runnable jar sets its own classpath relative to the main jar file.
 
@@ -66,41 +66,67 @@ To run these programs, specify the ```-jar``` java option:
 
 ```java -jar smf-de-dup/target/smf-de-dup-1.0.1.jar smfdata.smf ```
 
-### On z/OS under OMVS ###
+### On z/OS under OMVS
 
 Transfer/copy the jar files in binary mode to a unix directory on z/OS. Then run the programs using the same procedures as Linux. A dataset name can be specified using the syntax:
 
-```java -cp  'sample-reports/target/*' com.smfreports.RecordCount //"'MVS1.SMF.RECORDS'"```
+```java -cp  'sample-reports/target/*:sample-reports/target/lib/*' com.smfreports.RecordCount //"'MVS1.SMF.RECORDS'"```
 
-### On z/OS in batch ###
+### On z/OS in batch
+
+#### Using JZOS Batch Launcher
+
+The JZOS Batch Launcher is probably the easiest way to run Java on z/OS, because it runs as a normal batch job and DD statements can be used in the JCL to define the input and output.
 
 1. Install the JZOS batch launcher according to the IBM installation instructions. Installation consists of copying the JZOS load modules from the Java filesystem to a PDS/E, and copying sample JCL and PROCs.
 
-1. Modify the JZOS sample JCL to run EasySMF
-    - set the JAVACLS and ARGS parameters
-    - add a DD for EZSMFKEY
-    - specify the input dataset
-    - set APP_HOME to the directory where you copied the jar files
+2. JCL to run under JZOS is provided here:      
+   [JCL/RUNJZOS.jcl](./JCL/RUNJZOS.jcl)
 
+#### Under BPXBATCH
 
-    ```
-    //JAVA EXEC PROC=JVMPRC80,
-    // JAVACLS='com.smfreports.RecordCount',
-    // ARGS='//DD:INPUT'
-    //INPUT  DD DISP=SHR,DSN=MVS1.SMF.RECORDS
-    //EZSMFKEY DD DISP=SHR,DSN=VENDOR.PARMLIB(EZSMFKEY)
-    ```
+JCL to run the samples using BPXBATCH is available here:
 
-    ```
-    //STDENV DD *
-    ... (lines skipped)
+[JCL/RUNBPXB.jcl](./JCL/RUNBPXB.jcl)
 
-    # Customize your CLASSPATH here
-    APP_HOME=/home/andrewr/java
-    CLASSPATH=$APP_HOME:"${JAVA_HOME}"/lib:"${JAVA_HOME}"/lib/ext
+### Java 11 Single File Source Code Program
 
-    ... (lines skipped)
-    ```
+Many of the sample programs are in a single Java file, which makes them candidates for the single file source code feature in Java 11.
+
+Programs can be executed by specifying the source file name to Java.
+
+#### Batch
+
+JCL to run single file source code programs under BPXBATCH is available here:
+
+[JCL/J11BPXB.jcl](./JCL/J11BPXB.jcl)
+
+#### OMVS
+
+To run a single file source code program under OMVS:
+```
+java -cp 'sample-reports/target/lib/*' sample-reports/src/main/java/com/smfreports/RecordCount.java smfdata.smf
+```
+
+## Compiling the samples
+
+The easiest way to compile the samples is to clone or download the samples from Github, and use [Apache Maven](https://maven.apache.org/) to run the build.
+
+After installing Maven, change to the directory containing the pom.xml file and enter
+```
+mvn clean package
+```
+The first time you run Maven it downloads many plugins and components used for the build. These are cached on your machine so they are not downloaded every time.
+
+The resulting jar file will be in the ```target``` directory, and dependencies in the ```target/lib``` directory.
+
+The jar files can be uploaded to z/OS as binary files using your favorite file transfer program.
+
+### Compiling on z/OS
+
+If you want to compile samples on z/OS, JCL is provided here:
+
+[JCL/COMPILE.jcl](./JCL/COMPILE.jcl)
 
 ## Sample Reports
 

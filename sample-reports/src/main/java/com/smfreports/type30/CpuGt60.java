@@ -21,7 +21,7 @@ public class CpuGt60
         
         // SmfRecordReader.fromName(...) accepts a filename, a DD name in the
         // format //DD:DDNAME or MVS dataset name in the form //'DATASET.NAME'
-    	
+        
         try (SmfRecordReader reader = SmfRecordReader.fromName(args[0])) 
         { 
             reader.include(30, 5);

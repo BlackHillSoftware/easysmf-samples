@@ -12,7 +12,7 @@ You can interate or stream from the SmfRecordReader to get [SmfRecord](https://s
 
 ```
 try (SmfRecordReader reader = SmfRecordReader.fromName(args[0]))
-{        	
+{            
     for (SmfRecord record : reader)
     {
         if (record.recordType() == 30)

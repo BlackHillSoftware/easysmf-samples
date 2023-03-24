@@ -21,7 +21,7 @@ public class PerformanceIndex
             System.out.println("<input-name> can be filename, //DD:DDNAME or //'DATASET.NAME'");          
             return;
         }
-    	
+        
         ArrayList<ServiceClassPeriod> highPI = new ArrayList<ServiceClassPeriod>();
         
         // SmfRecordReader.fromName(...) accepts a filename, a DD name in the
