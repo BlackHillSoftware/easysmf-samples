@@ -13,7 +13,7 @@ import com.blackhillsoftware.smf.smf14.Smf14Record;
  *
  */
 
-public class sample2
+public class Sample2
 {
     public static void main(String[] args) throws IOException                                   
     {                                       

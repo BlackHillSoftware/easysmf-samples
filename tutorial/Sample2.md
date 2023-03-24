@@ -1,6 +1,6 @@
 ## Sample 2: Filter and print SMF data
 
-[Sample 2 Source Code: sample2.java](./src/sample2.java)
+[Sample 2 Source Code: sample2.java](./src/main/java/Sample2.java)
 
 Sample 2 shows how you can use Java Streams to filter and process SMF data.
 
@@ -38,4 +38,4 @@ to the next steps.
 - **limit** stop after this number of matches.
 - **forEach** process each record. In this case, print the output.
 
-[Sample 2 Source Code: sample2.java](./src/sample2.java)
+[Sample 2 Source Code: sample2.java](./src/main/java/Sample2.java)

@@ -1,7 +1,7 @@
 //JOBNAME  JOB CLASS=A,
 //             MSGCLASS=H,
 //             NOTIFY=&SYSUID
-//*
+//*                                                          Col 72 -> |
 //* ***** Edit with CAPS OFF and NUMBER OFF *****
 //*
 //* Compile a Java program using BPXBATCH
@@ -11,14 +11,14 @@
 //* Java source and target directories.
 //* As distributed, they are relative to user's home directory
 //*
-// SET SRC='./java/easysmf-je-1-9-3/samples/source'
+// SET SRC='./java/easysmf-je-2.0.1/samples/smf2json/src/main/java'
 // SET TGT='./java/target'
 //*
 //* File to compile, relative to SRC directory
-// SET CLASS='com/blackhillsoftware/samples/RecordCount.java'
+// SET CLASS='com/smfreports/json/Smf30RecordToJson.java'
 //*
 //* EasySMF directory:
-// SET EZSMFDIR='./java/easysmf-je-1-9-3'
+// SET EZSMFDIR='./java/easysmf-je-2.0.1'
 //*
 //* Location of Java:
 // SET JAVA='/usr/lpp/java/J8.0'
@@ -33,7 +33,7 @@
 //STDPARM  DD *
 SH ${JAVA}/bin/javac
  -Xlint -verbose
- -cp "${EZSMFDIR}/jar/*"
+ -cp "${EZSMFDIR}/jar/*:${EZSMFDIR}/samples/jar/lib/*"
  -d ${TGT}
  ${SRC}/${CLASS}
 //STDENV   DD *,SYMBOLS=JCLONLY

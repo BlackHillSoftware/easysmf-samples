@@ -23,7 +23,7 @@ import com.blackhillsoftware.smf.smf30.*;
  *
  */
 
-public class sample5 
+public class Sample5 
 {
     public static void main(String[] args) throws IOException                                   
     {                

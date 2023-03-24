@@ -28,7 +28,4 @@ export EASYSMFKEY="./java/easysmfkey.txt"
 # Optional, directory with compiled EasySMF Java programs:
 export TARGET="./java/target"
 
-# Directory containing EasySMF Samples jar file:
-export EASYSMFSAMPLES="./java/easysmf-samples"
-
-java -classpath "$TARGET:$EASYSMFSAMPLES/*:$EASYSMFLOCATION/jar/*" $@
+java -classpath "$TARGET:$TARGET/*:$TARGET/lib/*:$EASYSMFLOCATION/jar/*:$EASYSMFLOCATION/samples/jar/lib/*:$EASYSMFLOCATION/samples/jar/*" $@

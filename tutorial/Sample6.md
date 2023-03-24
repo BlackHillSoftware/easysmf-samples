@@ -1,6 +1,6 @@
 ## Sample 6: A/B Reporting
 
-[Sample 6 Source Code: sample6.java](./src/sample6.java)
+[Sample 6 Source Code: sample6.java](./src/main/java/Sample6.java)
 
 Sample 6 creates an A/B report showing changes in statistics by program name before and after a specific date.
 
@@ -111,4 +111,4 @@ This report has several elements that might not exist or might not make any sens
 
 The methods that calculate these elements return an Optional value The output code formats the value if it exists, **orElse** inserts an empty string in its place.
 
-[Sample 6 Source Code: sample6.java](./src/sample6.java)
+[Sample 6 Source Code: sample6.java](./src/main/java/Sample6.java)

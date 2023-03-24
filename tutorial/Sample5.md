@@ -1,6 +1,6 @@
 ## Sample 5: Repeating Record Sections
 
-[Sample 5 Source Code: sample5.java](./src/sample5.java)
+[Sample 5 Source Code: sample5.java](./src/main/java/Sample5.java)
 
 When a section in a SMF record can be repeated, the sections will be returned in a `List<T>`.
 Sometimes a record will have no instances of a particular section - in that case an empty list is returned. 
@@ -115,4 +115,4 @@ jobStepPrograms.stream()
             entry.getProgramName()));
 ```
 
-[Sample 5 Source Code: sample5.java](./src/sample5.java)
+[Sample 5 Source Code: sample5.java](./src/main/java/Sample5.java)

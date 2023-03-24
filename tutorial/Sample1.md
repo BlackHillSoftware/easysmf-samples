@@ -1,6 +1,6 @@
 ## Sample 1: Read, extract and print SMF data
 
-[Sample 1 Source Code: sample1.java](./src/sample1.java)
+[Sample 1 Source Code: sample1.java](./src/main/java/Sample1.java)
 
 Sample 1 shows the basics of reading SMF data and extracting sections and fields.
 
@@ -84,4 +84,4 @@ This means you can iterate over the lists without specifically checking whether 
 - The objective is to provide consistent methods and values across all SMF record types, so that techniques for accessing the data are transferable from one record type to another.
 - Data about the meaning of the fields can be found in the various IBM documentation. Documenting the meaning of the fields is beyond the scope of the product.
 
-[Sample 1 Source Code: sample1.java](./src/sample1.java)
+[Sample 1 Source Code: sample1.java](./src/main/java/Sample1.java)

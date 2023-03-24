@@ -1,6 +1,6 @@
 ## Sample 4: Group and Summarize SMF data
 
-[Sample 4 Source Code: sample4.java](./src/sample4.java)
+[Sample 4 Source Code: sample4.java](./src/main/java/Sample4.java)
 
 Sample 4 shows how group and summarize SMF data in Java.
 
@@ -90,4 +90,4 @@ programs.entrySet().stream()
 
 The principles used in this sample can be adapted to many different situations, simply by changing the data accumulated in the Statistics class and the data used for the key in the Map.
 
-[Sample 4 Source Code: sample4.java](./src/sample4.java)
+[Sample 4 Source Code: sample4.java](./src/main/java/Sample4.java)

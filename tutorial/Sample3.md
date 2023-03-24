@@ -1,6 +1,6 @@
 ## Sample 3: Search SMF for a Text String 
 
-[Sample 3 Source Code: sample3.java](./src/sample3.java)
+[Sample 3 Source Code: sample3.java](./src/main/java/Sample3.java)
 
 Sample 3 shows how you can search for text when you don't know which specific record types might be relevant.
 
@@ -38,4 +38,4 @@ The entire record is translated to a Java string before searching for the text. 
 
 When running this sample, start with a limited amount of data and monitor the CPU time consumed. In testing, the program used about 10 seconds of CPU time per GB of SMF data on the IBM Dallas Remote Development system. 90% of that was on a zIIP.
 
-[Sample 3 Source Code: sample3.java](./src/sample3.java)
+[Sample 3 Source Code: sample3.java](./src/main/java/Sample3.java)

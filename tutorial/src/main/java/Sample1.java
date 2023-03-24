@@ -11,7 +11,7 @@ import com.blackhillsoftware.smf.smf30.Smf30Record;
  *
  */
 
-public class sample1 
+public class Sample1 
 {
     public static void main(String[] args) throws IOException                                   
     {                                       

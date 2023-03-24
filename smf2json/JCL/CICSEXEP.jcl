@@ -10,7 +10,7 @@
 //* Customize symbols as required:
 //*
 //* Location of sample jar files and dependencies (EasySMF etc):
-// SET  APPHOME='/home/<userid>/java/easysmf-samples'
+// SET APPHOME='/home/<userid>/java/easysmf-je-2.0.1/samples/jar'
 //*
 // SET JAVAHOME='/usr/lpp/java/J8.0'
 //*
@@ -64,6 +64,9 @@ CLASSPATH=$APP_HOME:"${JAVA_HOME}"/lib:"${JAVA_HOME}"/lib/ext
 
 # Add Application required jars to end of CLASSPATH
 for i in "${APP_HOME}"/*.jar; do
+    CLASSPATH="$CLASSPATH":"$i"
+    done
+for i in "${APP_HOME}/lib"/*.jar; do
     CLASSPATH="$CLASSPATH":"$i"
     done
 export CLASSPATH="$CLASSPATH":
