@@ -14,11 +14,11 @@
 //* important, the path is separated and passed to the shell
 //* as 2 variables to avoid JCL line length limitations.
 //*
-// SET DIR='./git/easysmf-samples/smf2json/src/main/java'
-// SET FILE='com/smfreports/json/Smf30RecordToJson.java'
+// SET DIR='./git/easysmf-samples/sample-reports/src/main/java'
+// SET FILE='com/smfreports/RecordCount.java'
 //*
 //* EasySMF directory
-// SET EZSMFDIR='./java/easysmf-je-2.0.1'
+// SET EZSMFDIR='./easysmf-je-2.0.3'
 //*
 //* Location of Java:
 // SET JAVA='/usr/lpp/java/J11.0_64'
@@ -27,7 +27,7 @@
 // SET SMFDATA=SMF.RECORDS
 //*
 //* Location of EasySMF Key e.g. FB 80 PDS
-// SET KEYDSN=EASYSMF.INSTALL(EZSMFK)
+// SET KEYDSN=EASYSMF.PARMLIB(EZSMFKEY)
 //*
 //* Run a Java program under BPXBATCH
 //*

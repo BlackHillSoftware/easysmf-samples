@@ -15,13 +15,13 @@
 //* Class to run with empty JAR and JARDIR, or
 //* CLASS='-jar' with JARDIR and JAR values for an executable jar.
 //*
-// SET CLASS='com.smfreports.json.Smf30RecordToJson'
+// SET CLASS='com.smfreports.RecordCount'
 // SET JARDIR=''
 // SET JAR=''
 //*
 //*SET CLASS='-jar'
-//*SET JARDIR='./java/easysmf-je-2.0.1/samples/jar/'
-//*SET JAR='smf-report-dups-1.1.0.jar'
+//*SET JARDIR='./easysmf-je-2.0.3/samples/jar/'
+//*SET JAR='smf-report-dups-1.2.0.jar'
 //*
 //* Java target directory
 //* As distributed, relative to user's home directory
@@ -34,7 +34,7 @@
 // SET TGT='./java/target'
 //*
 //* EasySMF directory
-// SET EZSMFDIR='./java/easysmf-je-2.0.1'
+// SET EZSMFDIR='./easysmf-je-2.0.3'
 //*
 //* Location of Java:
 // SET JAVA='/usr/lpp/java/J8.0'
@@ -43,7 +43,7 @@
 // SET SMFDATA=SMF.RECORDS
 //*
 //* Location of EasySMF Key e.g. FB 80 PDS
-// SET KEYDSN=EASYSMF.INSTALL(EZSMFK)
+// SET KEYDSN=EASYSMF.PARMLIB(EZSMFKEY)
 //*
 //* Run a Java program under BPXBATCH
 //*

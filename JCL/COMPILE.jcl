@@ -11,14 +11,14 @@
 //* Java source and target directories.
 //* As distributed, they are relative to user's home directory
 //*
-// SET SRC='./java/easysmf-je-2.0.1/samples/smf2json/src/main/java'
+// SET SRC='./easysmf-je-2.0.3/samples/sample-reports/src/main/java'
 // SET TGT='./java/target'
 //*
 //* File to compile, relative to SRC directory
-// SET CLASS='com/smfreports/json/Smf30RecordToJson.java'
+// SET CLASS='com/smfreports/RecordCount.java'
 //*
 //* EasySMF directory:
-// SET EZSMFDIR='./java/easysmf-je-2.0.1'
+// SET EZSMFDIR='./easysmf-je-2.0.3'
 //*
 //* Location of Java:
 // SET JAVA='/usr/lpp/java/J8.0'
