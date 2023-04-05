@@ -5,8 +5,7 @@
 # Instructions
 #
 # 1) Change EASYSMFLOCATION to the path where EasySMF was installed.
-# 2) Change TARGET directory as required. As distributed it is
-#    relative to the current working directory.
+# 2) Change TARGET directory as required.
 # 3) Ensure this file is executable:
 #    chmod +x runsample
 # 4) Run the script passing the sample file as an argument e.g.:
@@ -16,7 +15,7 @@
 # were set by the Java installation process.
 #
 
-export EASYSMFLOCATION="./java/easysmf-je-VERSION"
-export TARGET="./java/target"
+export EASYSMFLOCATION="/home/<userid>/easysmf-je-VERSION"
+export TARGET="/home/<userid>/java/target"
 
 javac -cp "$EASYSMFLOCATION/jar/*:$EASYSMFLOCATION/samples/jar/lib/*" -d "$TARGET" "$1"
