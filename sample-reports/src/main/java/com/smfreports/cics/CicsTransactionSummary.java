@@ -22,8 +22,7 @@ public class CicsTransactionSummary
             return;
         }
         
-        Map<String, Map<String, TransactionData>> applids = 
-                new HashMap<String, Map<String, TransactionData>>();
+        Map<String, Map<String, TransactionData>> applids = new HashMap<>();
 
         int noDictionary = 0;
         int txCount = 0;
@@ -80,7 +79,7 @@ public class CicsTransactionSummary
         if (Smf110Record.getCompressedByteCount() > 0) 
         {
             System.out.format(
-                    "%n%nCompressed bytes %,d, decompressed bytes %,d, compression %.1f%%.", 
+                    "%n%nCompressed bytes %,d, decompressed bytes %,d, compression %.1f%%.%n", 
                     Smf110Record.getCompressedByteCount(),
                     Smf110Record.getDecompressedByteCount(),
                     (double)(Smf110Record.getDecompressedByteCount() - Smf110Record.getCompressedByteCount()) / Smf110Record.getDecompressedByteCount() * 100);
