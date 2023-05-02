@@ -21,7 +21,7 @@ public class RecordCount
     {
         if (args.length < 1)
         {
-            System.out.println("Usage: RecordCount <input-name>");
+            System.out.println("Usage: RecordCount <input-name> [<input-name> ...]");
             System.out.println("<input-name> can be filename, //DD:DDNAME or //'DATASET.NAME'");          
             return;
         }
@@ -32,20 +32,23 @@ public class RecordCount
         
         RecordStats totals = new RecordStats(-1, -1);
         
-        // SmfRecordReader.fromName(...) accepts a filename, a DD name in the
-        // format //DD:DDNAME or MVS dataset name in the form //'DATASET.NAME'
-        
-        try (SmfRecordReader reader = SmfRecordReader.fromName(args[0]))
-        { 
-            for (SmfRecord record : reader)
-            {
-                totals.add(record);
-                int type = record.recordType();
-                int subtype = record.hasSubtypes() ? record.subType() : 0;
-                
-                statsMap.computeIfAbsent(type, key -> new HashMap<>())
-                    .computeIfAbsent(subtype, key -> new RecordStats(type, subtype))
-                    .add(record);
+        for (String inputName : args) // accept multiple input files
+        {
+            // SmfRecordReader.fromName(...) accepts a filename, a DD name in the
+            // format //DD:DDNAME or MVS dataset name in the form //'DATASET.NAME'
+            
+            try (SmfRecordReader reader = SmfRecordReader.fromName(inputName))
+            { 
+                for (SmfRecord record : reader)
+                {
+                    totals.add(record);
+                    int type = record.recordType();
+                    int subtype = record.hasSubtypes() ? record.subType() : 0;
+                    
+                    statsMap.computeIfAbsent(type, key -> new HashMap<>())
+                        .computeIfAbsent(subtype, key -> new RecordStats(type, subtype))
+                        .add(record);
+                }
             }
         }
 
@@ -84,19 +87,19 @@ public class RecordCount
                     entry.getSubtype(), 
                     entry.getCount(), 
                     entry.getBytes() / (1024 * 1024),              
-                    (float) (entry.getBytes()) / totalbytes * 100, 
+                    totalbytes > 0 ? (float) (entry.getBytes()) / totalbytes * 100 : 0, 
                     entry.getMinLength(), 
                     entry.getMaxLength(),
-                    entry.getBytes() / entry.getCount()));
+                    entry.getCount() > 0 ? entry.getBytes() / entry.getCount() : 0));
                             
         System.out.format("%n%-14s %11d %11d %7.1f %9d %9d %9d %n",
                 "Total:",
                 totals.getCount(), 
                 totals.getBytes() / (1024 * 1024),             
-                (float) (totals.getBytes()) / totalbytes * 100, 
+                totalbytes > 0 ? (float) (totals.getBytes()) / totalbytes * 100 : 0, 
                 totals.getMinLength(), 
                 totals.getMaxLength(),
-                totals.getBytes() / totals.getCount());
+                totals.getCount() > 0 ? totals.getBytes() / totals.getCount() : 0);
         
     }
 
