@@ -16,14 +16,14 @@
 //* Location of sample jar files and dependencies (EasySMF etc):
 // SET  APPHOME='/home/<userid>/java/easysmf-je-2.0.1/samples/jar'
 //*
-// SET JAVAHOME='/usr/lpp/java/J8.0'
+// SET JAVAHOME='/usr/lpp/java/J8.0_64'
 //*
 // SET CICSDICT=MY.CICS.DICTIONARY.RECORDS
 // SET    INDSN=MY.INPUT.SMF.DATASET
 // SET   OUTDSN=MY.OUTPUT.JSON.DATASET
 //*
 //*
-//JAVA     EXEC PROC=JVMPRC80,
+//JAVA     EXEC PROC=JVMPRC86,
 //* Uncomment class as desired:
 // JAVACLS='com.smfreports.json.cics.CicsTransactions'
 //*JAVACLS='com.smfreports.json.cics.CicsTransactionSummary'
@@ -96,7 +96,7 @@ export CLASSPATH="$CLASSPATH":
 #export JZOS_MAIN_ARGS=""
 
 # Configure JVM options
-IJO="-Xms512m -Xmx1024m"
+IJO="-Xms512m -Xmx2048m"
 # Uncomment the following to aid in debugging "Class Not Found" problems
 #IJO="$IJO -verbose:class"
 # Uncomment the following if you want to run with Ascii file encoding..
