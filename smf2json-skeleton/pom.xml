@@ -11,7 +11,7 @@
 		<repository>
 			<id>black-hill-software</id>
 			<name>Black Hill Software Repository</name>
-			<url>https://blackhillsoftware.jfrog.io/artifactory/public</url>
+			<url>https://repository.blackhillsoftware.com/public</url>
 		</repository>
 	</repositories>
 
