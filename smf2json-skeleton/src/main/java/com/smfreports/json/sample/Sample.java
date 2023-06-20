@@ -26,7 +26,7 @@ public class Sample
     private static class CliClient implements Smf2JsonCLI.Client
     {        
         @Override
-        public List<Object> processRecord(SmfRecord record) 
+        public List<?> processRecord(SmfRecord record) 
         {
             // Receive each record read.
             // Return a list of objects to be converted to JSON format,
@@ -37,7 +37,7 @@ public class Sample
         }
         
         @Override
-        public List<Object> onEndOfData() 
+        public List<?> onEndOfData() 
         {
             // Called after all records have been read.
             // Return a list of objects to be converted to JSON format
