@@ -27,6 +27,9 @@ jobs:
         java-version: '11'
         distribution: 'temurin'
         cache: maven
+    - name: Check Versions
+      # process all poms
+      run: find . -name pom.xml -print0 | xargs -n 1 -0 -t mvn -B versions:display-dependency-updates --file 
     - name: Build with Maven
       # build all poms
       run: find . -name pom.xml -print0 | xargs -n 1 -0 -t mvn -B package --file 

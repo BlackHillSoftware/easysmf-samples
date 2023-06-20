@@ -34,7 +34,7 @@ public class Smf2JsonCLISample {
 
     private static class CliClient implements Smf2JsonCLI.Client {
         @Override
-        public List<Object> processRecord(SmfRecord record) {
+        public List<?> processRecord(SmfRecord record) {
             Smf30Record r30 = Smf30Record.from(record);
             if (r30.completionSection() != null) {
                 CompositeEntry composite = new CompositeEntry()
@@ -49,7 +49,7 @@ public class Smf2JsonCLISample {
         }
 
         @Override
-        public List<Object> onEndOfData() {
+        public List<?> onEndOfData() {
             return null;
         }
     }
