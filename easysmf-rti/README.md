@@ -6,6 +6,8 @@ The z/OS SMF Real Time Interface allows programs to read SMF records
 as they are written.
 The interface is RACF protected and does not require exits or APF authorization.
 
+Documentation for EasySMF-RTI can be found here: [EasySMF-RTI Javadoc](https://static.blackhillsoftware.com/easysmf-rti/javadoc/)
+
 These samples demonstrate various ways to use EasySMF-RTI to read and process
 real time SMF data.
 
