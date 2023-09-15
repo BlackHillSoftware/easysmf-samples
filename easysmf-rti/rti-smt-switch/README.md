@@ -9,6 +9,10 @@ If the SMT setting should be changed, it can either
 - issue a WTO, for information or action by your automation product
 - issue a command to change the setting
 
+Two programs are provided:
+- [SmtSwitch](./src/main/java/com/smfreports/sample/SmtSwitch.java) : The main program that reads SMF data from the real time interface and suggests/makes changes based on interval zIIP velocity.
+- [ZiipVelocity](./src/main/java/com/smfreports/sample/ZiipVelocity.java) : Process historical SMF data to report zIIP velocities.
+
 ### Disclaimer
 
  This program demonstrates usage of the EasySMF real time 
