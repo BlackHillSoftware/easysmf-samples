@@ -1,0 +1,1 @@
+bash -c "find . -name pom.xml -not -path '*/target/*' -print0 | xargs -n 1 -0 -t mvn -B versions:use-latest-releases --file"
