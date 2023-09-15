@@ -10,7 +10,7 @@
 //* Customize symbols as required:
 //*
 //* Location of sample jar files and dependencies (EasySMF etc):
-// SET APPHOME='/home/<userid>/java/easysmf-je-2.0.1/samples/jar'
+// SET APPHOME='/home/<userid>/java/easysmf-je-2.1.3/samples/jar'
 //*
 // SET JAVAHOME='/usr/lpp/java/J8.0'
 //*

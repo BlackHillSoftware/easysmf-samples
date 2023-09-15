@@ -11,23 +11,13 @@
 //* Class to run with empty JAR and JARDIR, or
 //* CLASS='-jar' with JARDIR and JAR values for an executable jar.
 //*
-// SET CLASS='com.smfreports.RecordCount'
+// SET CLASS='com.smfreports.sample.SmtSwitch'
 // SET JARDIR=''
 // SET JAR=''
 //*
 //*SET CLASS='-jar'
 //*SET JARDIR='./easysmf-je-2.1.3/samples/jar/'
-//*SET JAR='smf-report-dups-1.2.0.jar'
-//*
-//* Java target directory
-//* As distributed, relative to user's home directory
-//* The target directory will be searched first for
-//* classes and dependencies, then target/lib, then the
-//* &EZSMFDIR./jar, &EZSMFDIR./samples/jar and
-//* &EZSMFDIR./samples/jar/lib directories
-//* All CLASSPATH values are ignored for an executable jar.
-//*
-// SET TGT='./java/target'
+//*SET JAR='easysmf-rti-smt-switch-1.0.0.jar'
 //*
 //* EasySMF directory:
 // SET EZSMFDIR='./easysmf-je-2.1.3'
@@ -36,22 +26,21 @@
 // SET JZOSLIB=JZOS.LINKLIBE
 //*
 //* Location of Java:
-// SET JAVA='/usr/lpp/java/J8.0'
+// SET JAVA='/usr/lpp/java/J8.0_64'
 //*
-//* SMF data to process
-// SET SMFDATA=SMF.RECORDS
+//* SMF data to process or
+// SET SMFDATA=IFASMF.ALLRECS
 //*
 //* Run a Java program under JZOS Batch Launcher
 //*
-//G        EXEC PGM=JVMLDM80,REGION=0M,
+//G        EXEC PGM=JVMLDM86,REGION=0M,
 // PARM='/ &CLASS &JARDIR.&JAR.'
 //*
 //STEPLIB  DD DISP=SHR,DSN=&JZOSLIB
 //*
 //MAINARGS DD *,DLM=$$,SYMBOLS=JCLONLY
- //DD:INPUT
+ &SMFDATA
 $$
-//INPUT    DD DISP=SHR,DSN=&SMFDATA
 //SYSPRINT DD SYSOUT=*
 //SYSOUT   DD SYSOUT=*
 //STDOUT   DD SYSOUT=*
@@ -61,15 +50,15 @@ $$
 //*
 //* EasySMF Key - get a 30 day trial from
 //* https://www.blackhillsoftware.com/30-day-trial/
-//* This sample key expires 2023-04-15
+//* This sample key expires 2023-10-14
 //*
 //EZSMFKEY DD *
 **License:
-MQ0KMjAyMy0wNC0xNQ0KVGVtcG9yYXJ5IEtleQ0K
+MQoyMDIzLTEwLTE0ClRlbXBvcmFyeSBLZXkKSkUsUlRJCg==
 **Sig:
-mcBCoJt2H/XErCI7kiWA647KJAUE++SJy3Q2rRCuQZzlbXoMu/hCLRoPa9UBloIz
-g/ABXaBF23weg8PNSPTczlHFP6vrC8eBOx5SkGDzwR0JlTa0iDQ3tgH3gJqNnt4I
-RO/BCP8rAUr4NjMA5yFSqxGFnLG8pIOs+/64jB6fXV4=
+n6gx3VtKr70v1Lt0bTvjPYjvSg0XwgU7EZyBw4Y807kjuDKB8+D819W2sdbQuqdI
+ZDr/MrfnLisMJlp5VoZdf7LKhtfUEMz0kHBeJJZxKDo/LcsfRtcrLp5h0iEvzcmg
+8ksTOC2bubn5Xvg7lhwXJB0q47ulWXLqErZY0NFyIrc=
 **End
 //*
 //* Configure for JZOS: based on JVMJCL80/JVMPRC80
