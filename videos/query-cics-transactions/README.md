@@ -1,8 +1,9 @@
 # How to Query CICS Transaction SMF Data
 
-These are the sample programs demonstrated in the video 
-How to Query CICS Transaction SMF Data using Java Streams and 
-EasySMF:JE (link TBA)
+These are  sample programs for the video:
+
+[How to Query CICS Transaction SMF Data using Java Streams and 
+EasySMF:JE](https://youtu.be/OhyJTJ0QN1I)
 
 The samples demonstrate techniques including
 - Filtering by CICS transaction fields
@@ -11,7 +12,7 @@ The samples demonstrate techniques including
 - Counting and summing values
 - Reading data from files, datasets and SMF logstreams
 
-Samples listing transactions provide multiple output formats:
+Samples provide multiple output formats:
 - Simple transaction data
 - JSON format
 - A list of CICS Clock values where the value is more than 10% of the 
