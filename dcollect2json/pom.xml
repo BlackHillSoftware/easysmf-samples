@@ -3,7 +3,7 @@
 
 	<groupId>com.blackhillsoftware.samples</groupId>
 	<artifactId>dcollect2json</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<packaging>jar</packaging>
 
 	<name>DCOLLECT to JSON</name>
@@ -114,11 +114,9 @@
 			<version>1.4.0</version>
 		</dependency>
 		<dependency>
-			<groupId>com.ibm.jzos</groupId>
-			<artifactId>ibmjzos</artifactId>
-			<version>2.4.8</version>
-			<scope>provided</scope>
-			<optional>true</optional>
-		</dependency>
+			<groupId>com.blackhillsoftware.zutil</groupId>
+			<artifactId>bhs-zutil</artifactId>
+			<version>1.6.0</version>
+		</dependency>		
 	</dependencies>
 </project>

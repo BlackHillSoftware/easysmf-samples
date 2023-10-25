@@ -3,7 +3,7 @@
 
 	<groupId>com.blackhillsoftware.samples</groupId>
 	<artifactId>dcollect</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<packaging>jar</packaging>
 
 	<name>DCOLLECT Samples</name>
