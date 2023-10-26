@@ -11,7 +11,7 @@
 //STDERR    DD SYSOUT=*                                                 
 //STDPARM DD *                                                          
 SH /usr/lpp/java/J11.0_64/bin/java                                      
- -cp "/home/andrewr/easysmf-je-2.1.2/samples/jar/lib/*"                             
+ -cp "/home/andrewr/easysmf-je-2.2.1/samples/jar/lib/*"                             
  /home/andrewr/java/src/Query01ElapsedTime.java                                  
 //STDENV    DD *,SYMBOLS=JCLONLY                                        
 EASYSMFKEY=//'VENDOR.PARMLIB(EZSMFKEY)'                                 

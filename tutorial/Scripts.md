@@ -27,7 +27,7 @@ Set the environment variables to reflect your environment.
 
 Run the script specifying the java file name to compile e.g.
 ```
-./compilesample.sh java/easysmf-je-2.0.1/samples/sample-reports/src/main/java/com/blackhillsoftware/samples/RecordCount.java
+./compilesample.sh java/easysmf-je-2.2.1/samples/sample-reports/src/main/java/com/blackhillsoftware/samples/RecordCount.java
 ```
 
 ### Running the Samples
