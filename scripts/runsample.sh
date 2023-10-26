@@ -29,7 +29,7 @@
 #
 
 # Directory containing EasySMF:
-export EASYSMFLOCATION="/home/<userid>/java/easysmf-je-VERSION"
+export EASYSMFLOCATION="/home/<userid>/java/easysmf-je-2.2.1"
 
 # File containing EasySMF Key:
 export EASYSMFKEY="/home/<userid>/easysmfkey.txt"

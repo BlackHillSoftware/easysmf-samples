@@ -22,7 +22,7 @@ The run scripts provide samples of setting the classpath and environment variabl
 ### Compiling the Samples
 
 Set the environment variables to reflect your environment.
- - EASYSMFLOCATION : The directory containing EasySMF, e.g. **./java/easysmf-je-2.0.1**
+ - EASYSMFLOCATION : The directory containing EasySMF, e.g. **./java/easysmf-je-2.2.1**
  - TARGET : the target directory for the compilation. The Java class files will be created here.
 
 Run the script specifying the java file name to compile e.g.
@@ -33,7 +33,7 @@ Run the script specifying the java file name to compile e.g.
 ### Running the Samples
 
 Again, set the environment variables to reflect your environment.
- - EASYSMFLOCATION : The directory containing EasySMF, e.g. **./java/easysmf-je-2.0.1**
+ - EASYSMFLOCATION : The directory containing EasySMF, e.g. **./java/easysmf-je-2.2.1**
  - TARGET : location of the class files e.g. from **compilesample**. If you are running the samples from the distributed easysmf-je-samples jar this is not required.
  - EASYSMFKEY : the location of the file containing the EasySMF:JE temporary or permanent key. Get a 30 day trial key from:  
  [https://www.blackhillsoftware.com/30-day-trial/](https://www.blackhillsoftware.com/30-day-trial/)

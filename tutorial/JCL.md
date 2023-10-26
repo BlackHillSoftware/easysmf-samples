@@ -22,10 +22,10 @@ JCL parameters are assigned to unix environment variables via the STDENV DD and 
 
 Customize the parameters:
 
-- SRC - Location of the source to compile e.g. './java/easysmf-je-2.0.1/samples/smf2json/src/main/java'
+- SRC - Location of the source to compile e.g. './java/easysmf-je-2.2.1/samples/smf2json/src/main/java'
 - TGT - Destination for the compiled .class files e.g. './java/target'
 - CLASS - The path of the java file to compile, relative to the SRC directory e.g. 'com/smfreports/json/Smf30RecordToJson.java'
-- EZSMFDIR - The EasySMF:JE installation directory e.g. './java/easysmf-je-2.0.1'
+- EZSMFDIR - The EasySMF:JE installation directory e.g. './java/easysmf-je-2.2.1'
 - JAVA - The location to find Java e.g. '/usr/lpp/java/J8.0'
 
 ### Run using JZOS Batch Launcher
@@ -46,7 +46,7 @@ Again JCL symbolic parameters are used to customize the JCL.
 - JAR - Empty i.e. '' if running a class, or the name of the runnable jar file.
 - TGT - The location of locally compiled Java classes e.g. './java/target'.
   This is searched ahead of the jar containing EasySMF samples. You can use the JCL to run the compiled samples distributed with EasySMF, or run programs compiled using the **Compile using BPXBATCH** sample JCL.
-- EZSMFDIR - The EasySMF:JE installation directory e.g. './java/easysmf-je-2.0.1'
+- EZSMFDIR - The EasySMF:JE installation directory e.g. './java/easysmf-je-2.2.1'
 - JZOSLIB - The PDS/E containing the JZOS load module e.g. JZOS.LINKLIBE
 - JAVA - The location to find Java e.g. '/usr/lpp/java/J8.0'
 - SMFDATA - The z/OS dataset containing your SMF data e.g. SMF.RECORDS
@@ -69,7 +69,7 @@ JCL symbolic parameters are used to customize the JCL.
 - JAR - Empty i.e. '' if running a class, or the name of the runnable jar file.
 - TGT - The location of locally compiled Java classes e.g. './java/target'
   This is searched ahead of the jar containing EasySMF samples. You can use the JCL to run the compiled samples distributed with EasySMF, or run programs compiled using the **Compile using BPXBATCH** sample JCL.
-- EZSMFDIR - The EasySMF:JE installation directory e.g. './java/easysmf-je-1-9-3'
+- EZSMFDIR - The EasySMF:JE installation directory e.g. './java/easysmf-je-2.2.1'
 - JAVA - The location to find Java e.g. '/usr/lpp/java/J8.0'
 - SMFDATA - The z/OS dataset containing your SMF data e.g. SMF.RECORDS
 - KEYDSN - the dataset name containing the EasySMF license key e.g. EASYSMF.INSTALL(EZSMFK)
