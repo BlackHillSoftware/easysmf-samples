@@ -15,7 +15,7 @@
 # were set by the Java installation process.
 #
 
-export EASYSMFLOCATION="/home/<userid>/easysmf-je-VERSION"
+export EASYSMFLOCATION="/home/<userid>/easysmf-je-2.2.1"
 export TARGET="/home/<userid>/java/target"
 
 javac -cp "$EASYSMFLOCATION/jar/*:$EASYSMFLOCATION/samples/jar/lib/*" -d "$TARGET" "$1"

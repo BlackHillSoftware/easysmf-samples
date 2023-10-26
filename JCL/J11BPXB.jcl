@@ -18,7 +18,7 @@
 // SET FILE='com/smfreports/RecordCount.java'
 //*
 //* EasySMF directory
-// SET EZSMFDIR='./easysmf-je-2.1.3'
+// SET EZSMFDIR='./easysmf-je-2.2.1'
 //*
 //* Location of Java:
 // SET JAVA='/usr/lpp/java/J11.0_64'

@@ -61,8 +61,8 @@ The following JCL can be used to run the Dataset Activity report.
 // SET SMFDATA=SMF.RECORDS
 //*
 //* EasySMF directory and jar file:
-// SET EZSMFDIR='./java/easysmf-je-1-9-6'
-// SET EZSMFJAR='easysmf-je-1.9.6.jar'
+// SET EZSMFDIR='./java/easysmf-je-2.2.1'
+// SET EZSMFJAR='easysmf-je-2.2.1.jar'
 //*
 //* Sample directory and jar file:
 // SET SAMPLDIR='./java'
@@ -117,11 +117,11 @@ export LIBPATH="$LIBPATH":
 
 CP="&EZSMFDIR./jar/&EZSMFJAR."
 CP="${CP}":"&SAMPLDIR./&SAMPLJAR."
-CP="${CP}":"&EZSMFDIR./jar/slf4j-api-1.7.21.jar"
-CP="${CP}":"&EZSMFDIR./jar/slf4j-simple-1.7.21.jar"
+CP="${CP}":"&EZSMFDIR./jar/slf4j-api-2.0.9.jar"
+CP="${CP}":"&EZSMFDIR./jar/slf4j-simple-2.0.9.jar"
 export CLASSPATH="${CP}"
 
-IJO="-Xms16m -Xmx128m"
+IJO="-Xms128m -Xmx512m"
 export IBM_JAVA_OPTIONS="$IJO "
 
 ```

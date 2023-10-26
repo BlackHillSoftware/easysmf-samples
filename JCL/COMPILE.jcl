@@ -11,14 +11,14 @@
 //* Java source and target directories.
 //* As distributed, they are relative to user's home directory
 //*
-// SET SRC='./easysmf-je-2.1.3/samples/sample-reports/src/main/java'
+// SET SRC='./easysmf-je-2.2.1/samples/sample-reports/src/main/java'
 // SET TGT='./java/target'
 //*
 //* File to compile, relative to SRC directory
 // SET CLASS='com/smfreports/RecordCount.java'
 //*
 //* EasySMF directory:
-// SET EZSMFDIR='./easysmf-je-2.1.3'
+// SET EZSMFDIR='./easysmf-je-2.2.1'
 //*
 //* Location of Java:
 // SET JAVA='/usr/lpp/java/J8.0'
