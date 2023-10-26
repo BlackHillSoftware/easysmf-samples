@@ -23,7 +23,7 @@
 //* SET CLASS='com.smfreports.dcollect.DeltaDatasets'
 //*
 //* EasySMF directory:
-// SET EZSMFDIR='./easysmf-je-2.2.0'
+// SET EZSMFDIR='./easysmf-je-2.2.1'
 //*
 //* Location of JZOS batch launcher module JVMLDM80:
 // SET JZOSLIB=JZOS.LINKLIBE

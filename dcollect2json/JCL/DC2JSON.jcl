@@ -12,7 +12,7 @@
 //* subdirectory relative to jar.
 //*
 // SET CLASS='-jar'
-// SET JARDIR='./easysmf-je-2.2.0/samples/jar/'
+// SET JARDIR='./easysmf-je-2.2.1/samples/jar/'
 // SET JAR='dcollect2json-1.0.0.jar'
 //*
 //* Location of JZOS batch launcher module JVMLDM80:

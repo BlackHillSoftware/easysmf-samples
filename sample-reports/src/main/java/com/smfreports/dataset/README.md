@@ -66,7 +66,7 @@ The following JCL can be used to run the Dataset Activity report.
 //*
 //* Sample directory and jar file:
 // SET SAMPLDIR='./java'
-// SET SAMPLJAR='easysmf-je-samples-2.0.0.jar'
+// SET SAMPLJAR='easysmf-je-samples-2.2.1.jar'
 //*
 //* Location of JZOS batch launcher module JVMLDM80: 
 // SET JZOSLIB=JZOS.LINKLIBE
