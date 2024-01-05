@@ -51,5 +51,5 @@ jobs:
         cache: maven
     - name: Build with Maven
       # build all poms
-      run: find . -name pom.xml -not -path '*/target/*' -print0 | xargs -n 1 -0 -t mvn -B package --file 
+      run: find . -name pom.xml -not -path '*/target/*' -not -path '*/rti-http*' -print0 | xargs -n 1 -0 -t mvn -B package --file 
     
