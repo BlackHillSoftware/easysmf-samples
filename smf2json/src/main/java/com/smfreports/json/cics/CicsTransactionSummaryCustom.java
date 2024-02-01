@@ -139,9 +139,9 @@ public class CicsTransactionSummaryCustom
             double elapsedNanos = Duration.between(txData.getField(Field.START), txData.getField(Field.STOP))
                     .toNanos();
             elapsed += elapsedNanos / nanosPerSecond;
-            dispatch += txData.getFieldTimerSeconds(Field.USRDISPT);
-            dispatchWait += txData.getFieldTimerSeconds(Field.DISPWTT);
-            cpu += txData.getFieldTimerSeconds(Field.USRCPUT);
+            dispatch += txData.getField(Field.USRDISPT).timerSeconds();
+            dispatchWait += txData.getField(Field.DISPWTT).timerSeconds();
+            cpu += txData.getField(Field.USRCPUT).timerSeconds();
             if (!txData.getField(Field.ABCODEC).equals("") || !txData.getField(Field.ABCODEO).equals(""))
             {
                 abends++;

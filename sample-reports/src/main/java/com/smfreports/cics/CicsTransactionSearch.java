@@ -2,13 +2,14 @@ package com.smfreports.cics;
 
 import java.io.*;
 import java.time.*;
+import java.util.Comparator;
 
 import com.blackhillsoftware.json.EasySmfGsonBuilder;
 import com.blackhillsoftware.smf.*;
 import com.blackhillsoftware.smf.cics.*;
 import com.blackhillsoftware.smf.cics.monitoring.*;
 import com.blackhillsoftware.smf.cics.monitoring.fields.*;
-
+import com.blackhillsoftware.smf.summary.Top;
 import com.google.gson.Gson;
 
 /**
@@ -127,13 +128,14 @@ public class CicsTransactionSearch
                     // Sort e.g. by transaction start time
 //                    .sorted((a,b) -> a.getField(Field.START)
 //                            .compareTo(b.getField(Field.START)))
-                    
-                    // Sort e.g. by transaction USRCPUT time descending
-                    // a and b reversed in this comparison for reverse order sort
-//                    .sorted((a,b) -> b.getField(Field.USRCPUT).timer()
-//                            .compareTo(a.getField(Field.USRCPUT).timer()))                  
 
                     
+                    // Find and report only top values by a field 
+                    
+//                     .collect(Top.values(10, 
+//                            Comparator.comparing(tx -> tx.getField(Field.USRCPUT))))
+//                     .stream()
+                                        
                     // Limit number of matching entries
                     .limit(1000)
                     
