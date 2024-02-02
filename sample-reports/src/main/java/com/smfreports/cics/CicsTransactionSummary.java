@@ -137,9 +137,9 @@ public class CicsTransactionSummary
             count++;
             elapsed += Utils.ToSeconds(
                     Duration.between(txData.getField(Field.START), txData.getField(Field.STOP)));
-            dispatch += txData.getFieldTimerSeconds(Field.USRDISPT);
-            dispatchWait += txData.getFieldTimerSeconds(Field.DISPWTT);
-            cpu += txData.getFieldTimerSeconds(Field.USRCPUT);
+            dispatch += txData.getField(Field.USRDISPT).timerSeconds();
+            dispatchWait += txData.getField(Field.DISPWTT).timerSeconds();
+            cpu += txData.getField(Field.USRCPUT).timerSeconds();
         }
 
         public String getName() 
