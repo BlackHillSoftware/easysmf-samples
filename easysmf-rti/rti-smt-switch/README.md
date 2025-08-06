@@ -43,26 +43,6 @@ mvn -f pom.xml clean package
 
 The easysmf-rti-smt-switch jar file will be created in the ```./target``` directory. The project dependencies will be copied to ```./target/lib```.
 
-#### JZOS Dependencies
-
-Writing WTO messages requires the JZOS jar file as a dependency. If you want to use JZOS functions and build with Maven, you need to obtain the jar file from IBM and install it in the Maven repository on your build machine.
-
-```
-mvn install:install-file -Dfile=ibmjzos.jar -DgroupId=com.ibm.jzos -DartifactId=ibmjzos -Dversion=2.4.8 -Dpackaging=jar
-```
-
-Modify the jar file name and version as required. If your JZOS is a different version you will need to update the dependency in pom.xml to reflect the correct version.
-
-To find the version of your ibmjzos.jar file:
-```
-unzip -p ibmjzos.jar META-INF/MANIFEST.MF
-```
-and check the Implementation-Version entry.
-
-The project references version 2.4.8 which is quite old, but it means the program should work even with older Java installations.
-
-Uncomment the ibmjzos dependency in [pom.xml](./pom.xml).
-
 ### Java 11 Single File Source Code
 
 The source code is contained in a single file, so it can be run under Java 11 without a separate compile step. Copy the source to z/OS (or clone the samples using Git) and run under BPXBATCH using the [J11BPXB](./JCL/J11BPXB.jcl) JCL.

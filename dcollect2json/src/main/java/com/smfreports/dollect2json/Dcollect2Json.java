@@ -7,8 +7,8 @@ import com.blackhillsoftware.json.*;
 import com.blackhillsoftware.json.util.MultiLineArray;
 import com.blackhillsoftware.smf.*;
 import com.blackhillsoftware.zutil.io.TextRecordWriter;
-import com.blackhillsoftware.zutil.io.ZFileX;
 import com.google.gson.Gson;
+import com.ibm.jzos.ZFile;
 
 /**
  *
@@ -179,7 +179,7 @@ public class Dcollect2Json {
          */
         public JsonDD(String ddname, Gson gson) throws IOException 
         {
-            if (ZFileX.ddExists(ddname))
+            if (ZFile.ddExists(ddname))
             {
                 writer = TextRecordWriter.newWriterForDD(ddname);
                 
