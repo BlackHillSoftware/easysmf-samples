@@ -26,7 +26,7 @@
 		<dependency>
 			<groupId>com.blackhillsoftware</groupId>
 			<artifactId>easysmf-rti</artifactId>
-			<version>0.9.10</version>
+			<version>0.9.12</version>
 		</dependency>
 	</dependencies>
 
