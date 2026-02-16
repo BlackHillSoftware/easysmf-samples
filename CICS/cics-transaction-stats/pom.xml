@@ -2,12 +2,29 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.smfreports</groupId>
-	<artifactId>sample-reports</artifactId>
-	<version>2.2.0</version>
+	<artifactId>cics-transaction-response</artifactId>
+	<version>1.0.0</version>
 	<packaging>jar</packaging>
 
-	<name>EasySMF:JE Samples</name>
+	<name>EasySMF:JE CICS Transaction Statistics</name>
 	<url>https://www.blackhillsoftware.com</url>
+
+	<properties>
+	    <!-- Main class for executable JAR -->
+	    <mainClass>CicsTransactionResponse</mainClass>
+
+	    <!-- Plugin versions -->
+	    <maven-enforcer-plugin.version>3.4.1</maven-enforcer-plugin.version>
+	    <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
+	    <maven-dependency-plugin.version>3.6.0</maven-dependency-plugin.version>
+	    <maven-jar-plugin.version>3.2.0</maven-jar-plugin.version>
+
+	    <!-- Dependency versions -->
+	    <easysmf-je.version>2.4.1</easysmf-je.version>
+
+	    <maven.compiler.release>17</maven.compiler.release>
+	    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
 
 	<repositories>
 		<repository>
@@ -17,31 +34,15 @@
 		</repository>
 	</repositories>
 
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	    <maven.compiler.release>17</maven.compiler.release>	
-	</properties>
-
 	<build>	
+		<sourceDirectory>source</sourceDirectory>
+
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-enforcer-plugin</artifactId>
-				<version>3.4.1</version>
+				<version>${maven-enforcer-plugin.version}</version>
 				<executions>
-					<execution>
-						<id>enforce-maven</id>
-						<goals>
-							<goal>enforce</goal>
-						</goals>
-						<configuration>
-							<rules>
-								<requireMavenVersion>
-									<version>[3.8.1,)</version>
-								</requireMavenVersion>
-							</rules>
-						</configuration>
-					</execution>
 					<execution>
 						<id>enforce-no-snapshots</id>
 						<goals>
@@ -62,12 +63,12 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.11.0</version>
+				<version>${maven-compiler-plugin.version}</version>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-dependency-plugin</artifactId>
-				<version>3.6.0</version>
+				<version>${maven-dependency-plugin.version}</version>
 				<executions>
 					<execution>
 						<id>copy-dependencies</id>
@@ -82,6 +83,20 @@
 					</execution>
 				</executions>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>${maven-jar-plugin.version}</version>
+				<configuration>
+					<archive>
+						<manifest>
+							<addClasspath>true</addClasspath>
+							<mainClass>${mainClass}</mainClass>
+							<classpathPrefix>lib</classpathPrefix>
+						</manifest>
+					</archive>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 
@@ -89,20 +104,7 @@
 		<dependency>
 			<groupId>com.blackhillsoftware.smf</groupId>
 			<artifactId>easysmf-je</artifactId>
-			<version>2.4.1</version>
+			<version>${easysmf-je.version}</version>
 		</dependency>
-
-		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-math3</artifactId>
-			<version>3.6.1</version>
-		</dependency>
-
-		<dependency>
-			<groupId>com.blackhillsoftware.json</groupId>
-			<artifactId>easysmf-json</artifactId>
-			<version>1.4.5</version>
-		</dependency>
-
 	</dependencies>
 </project>
