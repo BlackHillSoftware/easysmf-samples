@@ -16,7 +16,7 @@
 // SET JAR=''
 //*
 //*SET CLASS='-jar'
-//*SET JARDIR='./easysmf-je-2.2.1/samples/jar/'
+//*SET JARDIR='./easysmf-je-2.4.2/samples/jar/'
 //*SET JAR='smf-report-dups-1.2.0.jar'
 //*
 //* Java target directory
@@ -30,20 +30,20 @@
 // SET TGT='./java/target'
 //*
 //* EasySMF directory:
-// SET EZSMFDIR='./easysmf-je-2.2.1'
+// SET EZSMFDIR='./easysmf-je-2.4.2'
 //*
 //* Location of JZOS batch launcher module JVMLDM80:
 // SET JZOSLIB=JZOS.LINKLIBE
 //*
 //* Location of Java:
-// SET JAVA='/usr/lpp/java/J8.0'
+// SET JAVA='/usr/lpp/java/J17.0_64'
 //*
 //* SMF data to process
 // SET SMFDATA=SMF.RECORDS
 //*
 //* Run a Java program under JZOS Batch Launcher
 //*
-//G        EXEC PGM=JVMLDM80,REGION=0M,
+//G        EXEC PGM=JVMLDM17,REGION=0M,
 // PARM='/ &CLASS &JARDIR.&JAR.'
 //*
 //STEPLIB  DD DISP=SHR,DSN=&JZOSLIB
@@ -61,29 +61,27 @@ $$
 //*
 //* EasySMF Key - get a 30 day trial from
 //* https://www.blackhillsoftware.com/30-day-trial/
-//* This sample key expires 2023-04-15
+//* This sample key expires 2026-03-19
 //*
 //EZSMFKEY DD *
 **License:
-MQ0KMjAyMy0wNC0xNQ0KVGVtcG9yYXJ5IEtleQ0K
+MQoyMDI2LTAzLTE5ClRlbXBvcmFyeSBLZXkKSkUsUlRJCg==
 **Sig:
-mcBCoJt2H/XErCI7kiWA647KJAUE++SJy3Q2rRCuQZzlbXoMu/hCLRoPa9UBloIz
-g/ABXaBF23weg8PNSPTczlHFP6vrC8eBOx5SkGDzwR0JlTa0iDQ3tgH3gJqNnt4I
-RO/BCP8rAUr4NjMA5yFSqxGFnLG8pIOs+/64jB6fXV4=
+xRws4XX1QJEyBzw2Wbo7zMD/MwPGL+pqPzO8cvGsCymk3B4vqR2EygzwyfVKMAes
+QCCuc+9Fqgo4XGq5ZQaZ2hbjGE1OL3K+/aa99YN/rRhxzCvpXLStfwajFmqcucoj
+MFuvkmecN3Q75GLxwgbpS7NqV3uYs4pIubynJiJ7B04=
 **End
 //*
-//* Configure for JZOS: based on JVMJCL80/JVMPRC80
+//* Configure for JZOS: based on JVMJCL17/JVMPRC17
 //*
 //STDENV   DD *,SYMBOLS=JCLONLY
 . /etc/profile
 export JAVA_HOME=&JAVA
 export PATH=/bin:"${JAVA_HOME}"/bin
-
-LIBPATH=/lib:/usr/lib:"${JAVA_HOME}"/bin
-LIBPATH="${LIBPATH}":"${JAVA_HOME}"/lib/s390
-LIBPATH="${LIBPATH}":"${JAVA_HOME}"/lib/s390/j9vm
-LIBPATH="${LIBPATH}":"${JAVA_HOME}"/bin/classic
-export LIBPATH="${LIBPATH}":
+LIBPATH=/lib:/usr/lib
+LIBPATH="$LIBPATH":"${JAVA_HOME}"/lib
+LIBPATH="$LIBPATH":"${JAVA_HOME}"/lib/j9vm
+export LIBPATH="$LIBPATH":
 
 CLASSPATH="${CLASSPATH}":"&TGT."
 for i in "&TGT."/*.jar; do

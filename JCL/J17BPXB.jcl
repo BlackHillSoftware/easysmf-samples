@@ -4,7 +4,7 @@
 //*                                                           Col 72 ->|
 //* ***** Edit with CAPS OFF and NUMBER OFF *****
 //*
-//* Run a single file Java program under Java 11 using BPXBATCH
+//* Run a single file Java program under Java 17 using BPXBATCH
 //*
 // EXPORT SYMLIST=*
 //*
@@ -18,10 +18,10 @@
 // SET FILE='com/smfreports/RecordCount.java'
 //*
 //* EasySMF directory
-// SET EZSMFDIR='./easysmf-je-2.2.1'
+// SET EZSMFDIR='./easysmf-je-2.4.2'
 //*
 //* Location of Java:
-// SET JAVA='/usr/lpp/java/J11.0_64'
+// SET JAVA='/usr/lpp/java/J17.0_64'
 //*
 //* SMF data to process
 // SET SMFDATA=SMF.RECORDS

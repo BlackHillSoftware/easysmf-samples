@@ -31,8 +31,8 @@
 		<easysmf-je.version>2.4.2</easysmf-je.version>
 		<slf4j-simple.version>2.0.17</slf4j-simple.version>
 		<easysmf-json.version>1.4.5</easysmf-json.version>
-		<bhs-zutil.version>1.6.0</bhs-zutil.version>
-		<ibmjzos.version>2.4.11.1</ibmjzos.version>
+		<bhs-zutil.version>1.6.1</bhs-zutil.version>
+		<ibmjzos.version>2.4.11.3</ibmjzos.version>
 	</properties>
 
 	<build>

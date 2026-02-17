@@ -34,10 +34,10 @@
 // SET TGT='./java/target'
 //*
 //* EasySMF directory
-// SET EZSMFDIR='./easysmf-je-2.2.1'
+// SET EZSMFDIR='./easysmf-je-2.4.2'
 //*
 //* Location of Java:
-// SET JAVA='/usr/lpp/java/J8.0'
+// SET JAVA='/usr/lpp/java/J17.0_64'
 //*
 //* SMF data to process
 // SET SMFDATA=SMF.RECORDS
