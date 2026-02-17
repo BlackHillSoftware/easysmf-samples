@@ -18,6 +18,15 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.release>17</maven.compiler.release>
+
+		<!-- Plugin versions -->
+		<maven-enforcer-plugin.version>3.4.1</maven-enforcer-plugin.version>
+		<maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
+		<maven-dependency-plugin.version>3.6.0</maven-dependency-plugin.version>
+
+		<!-- Dependency versions -->
+		<easysmf-je.version>2.4.2</easysmf-je.version>
+		<slf4j-simple.version>2.0.17</slf4j-simple.version>
 	</properties>
 
 	<build>
@@ -25,7 +34,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-enforcer-plugin</artifactId>
-				<version>3.4.1</version>
+				<version>${maven-enforcer-plugin.version}</version>
 				<executions>
 					<execution>
 						<id>enforce-maven</id>
@@ -60,12 +69,12 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.11.0</version>
+				<version>${maven-compiler-plugin.version}</version>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-dependency-plugin</artifactId>
-				<version>3.6.0</version>
+				<version>${maven-dependency-plugin.version}</version>
 				<executions>
 					<execution>
 						<id>copy-dependencies</id>
@@ -86,7 +95,14 @@
 		<dependency>
 			<groupId>com.blackhillsoftware.smf</groupId>
 			<artifactId>easysmf-je</artifactId>
-			<version>2.4.1</version>
+			<version>${easysmf-je.version}</version>
+		</dependency>
+		<!-- Specify a SLF4J provider for EasySMF messages. -->
+		<!-- slf4j-simple sends messages to System.err -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-simple</artifactId>
+			<version>${slf4j-simple.version}</version>
 		</dependency>
 	</dependencies>
 </project>

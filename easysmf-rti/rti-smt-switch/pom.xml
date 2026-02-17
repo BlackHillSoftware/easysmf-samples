@@ -20,23 +20,43 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.release>17</maven.compiler.release>
+
+		<!-- Plugin versions -->
+		<maven-enforcer-plugin.version>3.4.1</maven-enforcer-plugin.version>
+		<versions-maven-plugin.version>2.16.0</versions-maven-plugin.version>
+		<maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
+		<maven-jar-plugin.version>3.3.0</maven-jar-plugin.version>
+		<maven-dependency-plugin.version>3.6.0</maven-dependency-plugin.version>
+
+		<!-- Dependency versions -->
+		<easysmf-je.version>2.4.2</easysmf-je.version>
+		<slf4j-simple.version>2.0.17</slf4j-simple.version>
+		<easysmf-rti.version>0.9.12</easysmf-rti.version>
+		<ibmjzos.version>2.4.11.1</ibmjzos.version>
 	</properties>
 
 	<dependencies>
 		<dependency>
 			<groupId>com.blackhillsoftware.smf</groupId>
 			<artifactId>easysmf-je</artifactId>
-			<version>2.4.1</version>
+			<version>${easysmf-je.version}</version>
+		</dependency>
+		<!-- Specify a SLF4J provider for EasySMF messages. -->
+		<!-- slf4j-simple sends messages to System.err -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-simple</artifactId>
+			<version>${slf4j-simple.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.blackhillsoftware</groupId>
 			<artifactId>easysmf-rti</artifactId>
-			<version>0.9.12</version>
+			<version>${easysmf-rti.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.ibm.jzos</groupId>
 			<artifactId>ibmjzos</artifactId>
-			<version>2.4.11.1</version>
+			<version>${ibmjzos.version}</version>
 			<scope>provided</scope>
 			<optional>true</optional>
 		</dependency>
@@ -47,7 +67,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-enforcer-plugin</artifactId>
-				<version>3.4.1</version>
+				<version>${maven-enforcer-plugin.version}</version>
 				<executions>
 					<execution>
 						<id>enforce-maven</id>
@@ -82,16 +102,16 @@
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>versions-maven-plugin</artifactId>
-				<version>2.16.0</version>
+				<version>${versions-maven-plugin.version}</version>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.11.0</version>
+				<version>${maven-compiler-plugin.version}</version>
 			</plugin>
 			<plugin>
 				<artifactId>maven-jar-plugin</artifactId>
-				<version>3.3.0</version>
+				<version>${maven-jar-plugin.version}</version>
 				<configuration>
 					<archive>
 						<manifest>
@@ -105,7 +125,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-dependency-plugin</artifactId>
-				<version>3.6.0</version>
+				<version>${maven-dependency-plugin.version}</version>
 				<executions>
 					<execution>
 						<id>copy-dependencies</id>
