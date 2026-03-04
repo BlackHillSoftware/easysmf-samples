@@ -23,7 +23,8 @@
 	    <easysmf-je.version>2.4.2</easysmf-je.version>
 	    <slf4j-simple.version>2.0.17</slf4j-simple.version>
 
-	    <maven.compiler.release>17</maven.compiler.release>
+	    <maven.compiler.source>1.8</maven.compiler.source>
+	    <maven.compiler.target>1.8</maven.compiler.target>
 	    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 

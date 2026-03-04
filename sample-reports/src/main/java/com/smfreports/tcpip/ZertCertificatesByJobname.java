@@ -84,7 +84,7 @@ public class ZertCertificatesByJobname
 							certEntry.getKey(),
 							first.zertDetailTLSSection().smf119scTlsSCertTime());
 					first.zertDetailCertificateDN().forEach(dn -> 
-						System.out.println(" ".repeat(4) + dn.smf119scDn()));
+						System.out.println(repeat(" ", 4) + dn.smf119scDn()));
 				}
 				else
 				{
@@ -96,16 +96,16 @@ public class ZertCertificatesByJobname
 				jobRecords.entrySet().stream()
 					// sort by jobname, system
 					.sorted(
-						Comparator.comparing((Map.Entry<GroupKey, Smf119Record> entry) -> entry.getKey().jobname)
-							.thenComparing(entry -> entry.getKey().system)
+						Comparator.comparing((Map.Entry<GroupKey, Smf119Record> entry) -> entry.getKey().jobname())
+							.thenComparing(entry -> entry.getKey().system())
 					)
 					.forEachOrdered(entry -> {
 						GroupKey key = entry.getKey();
 						Smf119Record r119 = entry.getValue();
-						System.out.print(" ".repeat(65));
+						System.out.print(repeat(" ", 65));
 						System.out.format("%-8s %-8s %-25s %-8s %-8s %-15s%n",
-							key.jobname, 
-							key.system, 
+							key.jobname(), 
+							key.system(), 
 							r119.zertDetailCommonSection().smf119scSaSDateTime(),
 							r119.zertDetailCommonSection().smf119scSaJobID(), 
 							r119.zertDetailCommonSection().smf119scSaUserID(),
@@ -113,20 +113,63 @@ public class ZertCertificatesByJobname
 					});
 			});
 	}
-	
-	/**
-	 * Define a java record with the values used to group the SMF records
-	 */
-	record GroupKey (
-			String system, 
-			String jobname) 
+
+	private static String repeat(String s, int count)
 	{
-		public GroupKey(Smf119Record r119)
+		StringBuilder sb = new StringBuilder(count * s.length());
+		for (int i = 0; i < count; i++)
+			sb.append(s);
+		return sb.toString();
+	}
+
+	/**
+	 * Key used to group SMF records by system and jobname.
+     * A record can be used in Java 17+ for simpler code.
+	 */
+	private static final class GroupKey
+	{
+		private final String system;
+		private final String jobname;
+
+		GroupKey(String system, String jobname)
+		{
+			this.system = system;
+			this.jobname = jobname;
+		}
+
+		GroupKey(Smf119Record r119)
 		{
 			this(
-				r119.system(), 
+				r119.system(),
 				r119.zertDetailCommonSection().smf119scSaJobname());
-		}			
-	} 
+		}
+
+		String system()
+		{
+			return system;
+		}
+
+		String jobname()
+		{
+			return jobname;
+		}
+
+		@Override
+		public int hashCode() {
+			return Objects.hash(jobname, system);
+		}
+
+		@Override
+		public boolean equals(Object obj) {
+			if (this == obj)
+				return true;
+			if (obj == null)
+				return false;
+			if (getClass() != obj.getClass())
+				return false;
+			GroupKey other = (GroupKey) obj;
+			return Objects.equals(jobname, other.jobname) && Objects.equals(system, other.system);
+		}
+	}
 } 
 
