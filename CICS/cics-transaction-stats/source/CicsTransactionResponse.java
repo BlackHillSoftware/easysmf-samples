@@ -121,7 +121,48 @@ public class CicsTransactionResponse
             });
     }
 
-    private record ApplidTran(String applid, String tran) {}
+    /**
+     * Key for grouping by APPLID and transaction name.
+     * A record can be used in Java 17+ for simpler code.
+     */
+    private static final class ApplidTran
+    {
+		private final String applid;
+        private final String tran;
+
+        ApplidTran(String applid, String tran)
+        {
+            this.applid = applid;
+            this.tran = tran;
+        }
+
+        String applid()
+        {
+            return applid;
+        }
+
+        String tran()
+        {
+            return tran;
+        }
+        
+        @Override
+		public int hashCode() {
+			return Objects.hash(applid, tran);
+		}
+
+		@Override
+		public boolean equals(Object obj) {
+			if (this == obj)
+				return true;
+			if (obj == null)
+				return false;
+			if (getClass() != obj.getClass())
+				return false;
+			ApplidTran other = (ApplidTran) obj;
+			return Objects.equals(applid, other.applid) && Objects.equals(tran, other.tran);
+		}
+    }
 
     private static class TransactionData 
     {
