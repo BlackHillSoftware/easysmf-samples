@@ -27,7 +27,7 @@
 @REM
 
 @REM     Directory containing EasySMF, or target\lib subdirectory for Maven build:
-set "EASYSMFLOCATION=C:\path to\easysmf-je-2.2.1"
+set "EASYSMFLOCATION=C:\path to\easysmf-je-3.0.0"
 
 
 @REM     File containing EasySMF Key:

@@ -13,7 +13,7 @@
 @REM     were set by the Java installation process.
 @REM
 
-set "EASYSMFLOCATION=C:\path to\easysmf-je-2.2.1"
+set "EASYSMFLOCATION=C:\path to\easysmf-je-3.0.0"
 set "TARGET=C:\path to\java\target"
 
 javac -cp "%EASYSMFLOCATION%\jar\*;%EASYSMFLOCATION%\samples\jar\lib\*" -d "%TARGET%" %1 

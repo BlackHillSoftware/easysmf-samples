@@ -16,7 +16,7 @@
 // SET JAR=''
 //*
 //*SET CLASS='-jar'
-//*SET JARDIR='./easysmf-je-2.4.2/samples/jar/'
+//*SET JARDIR='./easysmf-je-3.0.0/samples/jar/'
 //*SET JAR='smf-report-dups-1.2.0.jar'
 //*
 //* Java target directory
@@ -30,7 +30,7 @@
 // SET TGT='./java/target'
 //*
 //* EasySMF directory:
-// SET EZSMFDIR='./easysmf-je-2.4.2'
+// SET EZSMFDIR='./easysmf-je-3.0.0'
 //*
 //* Location of JZOS batch launcher module JVMLDM80:
 // SET JZOSLIB=JZOS.LINKLIBE
