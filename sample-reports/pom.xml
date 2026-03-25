@@ -29,7 +29,7 @@
 		<!-- Dependency versions -->
 		<easysmf-je.version>3.0.0</easysmf-je.version>
 		<commons-math3.version>3.6.1</commons-math3.version>
-		<easysmf-json.version>1.4.5</easysmf-json.version>
+		<easysmf-json.version>1.4.6</easysmf-json.version>
 	</properties>
 
 	<build>	

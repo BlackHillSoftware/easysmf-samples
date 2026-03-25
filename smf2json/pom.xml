@@ -26,7 +26,7 @@
 
 		<!-- Dependency versions -->
 		<easysmf-je.version>3.0.0</easysmf-je.version>
-		<easysmf-json.version>1.4.5</easysmf-json.version>
+		<easysmf-json.version>1.4.6</easysmf-json.version>
 		<commons-cli.version>1.5.0</commons-cli.version>
 	</properties>
 

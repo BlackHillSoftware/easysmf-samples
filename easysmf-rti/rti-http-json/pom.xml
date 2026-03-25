@@ -31,7 +31,7 @@
 		<!-- Dependency versions -->
 		<easysmf-je.version>3.0.0</easysmf-je.version>
 		<easysmf-rti.version>0.9.13</easysmf-rti.version>
-		<easysmf-json.version>1.4.5</easysmf-json.version>
+		<easysmf-json.version>1.4.6</easysmf-json.version>
 	</properties>
 
 	<dependencies>
