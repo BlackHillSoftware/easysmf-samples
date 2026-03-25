@@ -29,7 +29,7 @@
 
 		<!-- Dependency versions -->
 		<easysmf-je.version>3.0.0</easysmf-je.version>
-		<easysmf-json.version>1.4.5</easysmf-json.version>
+		<easysmf-json.version>1.4.6</easysmf-json.version>
 		<bhs-zutil.version>1.6.1</bhs-zutil.version>
 		<ibmjzos.version>2.4.11.3</ibmjzos.version>
 	</properties>
