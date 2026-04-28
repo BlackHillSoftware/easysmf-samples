@@ -130,15 +130,7 @@ If you want to compile samples on z/OS, JCL is provided here:
 
 ## Sample Reports
 
-There are a number of sample reports to show how Java can be used to process SMF data.
-
-1. [Counting SMF Records](#counting-smf-records)
-1. [Analyzing Duplicate SMF records](#analyzing-duplicate-smf-records)
-1. [Summarizing Data by Jobname](#summarizing-data-by-jobname)
-1. [Highest Contributors to R4HA Peak](#highest-contributors-to-r4ha-peak)
-1. [User Key Common](#user-key-common)
-1. [A/B (Before/After) Comparison](#ab-beforeafter-comparison)
-1. [Dataset Activity](#dataset-activity)
+See the [Report Index](REPORTINDEX.md) for a detailed list of sample reports.
 
 ### Counting SMF Records
 
@@ -177,44 +169,3 @@ Duplicate data is flagged for any minute where the number of duplicates is great
 Duplicates are checked:
 - for each SMF ID to find instances where all data from a system is duplicated
 - by SMF ID and record type to find instances where particular record types are duplicated e.g. if a record type is copied into a separate dataset which is copied again back into the main stream.
-
-### Summarizing Data by Jobname
-
-Source: [JobsByJobname.java](./reports/src/main/java/com/smfreports/type30/JobsByJobname.java)
-
-Summary of CP time, zIIP time, Connect time and EXCP count by job name.
-
-### Highest Contributors to R4HA Peak
-
-Source: [PeakR4HAJobs.java](./reports/src/main/java/com/smfreports/r4ha/PeakR4HAJobs.java)
-
-Show the jobs and address spaces that used the most CPU during the R4HA peak periods.
-
-The program reads type 30 and type 70 SMF records. CPU information from the type 30 records is collected by jobname by hour, and the type 70 records are used to find the R4HA peaks.
-
-For each of the top 5 peaks on each system, sum the CP time used by each job in the 4 hours leading to that peak and report the top 5 jobs in the list. An estimated MSU value is also calculated based on the each jobs percentage of the total CPU time multiplied by the actual MSU.
-
-Do the same thing for zIIP on CP time.
-
-### User Key Common
-
-Source: [UserKeyCommon.java](./reports/src/main/java/com/smfreports/type30/UserKeyCommon.java)
-
-Search type 30 records for jobs with User Key Common flags set.
-
-Common storage in a user key is not supported after z/OS 2.3.
-APAR OA53355 introduced flags in the type 30 SMF record that are set
-if a task uses user key common storage.
-
-### A/B (Before/After) Comparison
-
-Source: [BeforeAfterProgramStatistics.java](./reports/src/main/java/com/smfreports/type30/BeforeAfterProgramStatistics.java)
-
-Produce a report by program name showing changes in zIIP%, zIIP on CP% and CPU milliseconds per I/O before and after a specified date. This type of report may help to evaluate the inpact of e.g. hardware or configuration changes.
-
-### Dataset Activity
-
-Source: [DatasetActivity.java](./reports/src/main/java/com/smfreports/dataset/DatasetActivity.java)
-
-List activity against datasets (read, write, update etc.) Additional documentation is available here: 
-[Dataset Reports](./reports/src/main/java/com/smfreports/dataset)
