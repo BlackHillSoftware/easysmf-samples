@@ -5,6 +5,7 @@ import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
+import java.util.function.ToDoubleFunction;
 import java.util.stream.*;
 
 import com.blackhillsoftware.smf.*;
@@ -12,14 +13,8 @@ import com.blackhillsoftware.smf.smf30.*;
 import com.blackhillsoftware.smf.smf70.*;
 
 /**
- * List the jobs by job name that used the most CPU time on each system 
+ * List the jobs that used the most CPU time on each system 
  * in the 4 hours up to and including the top 5 4HRA MSU peaks.
- * MSU usage for each job name is also estimated by calculating the 
- * CPU time for the job name as a proportion of all CPU time seen for
- * those hours, and apportioning the SMF70LAC MSU value. This will not be 
- * totally accurate due to time not captured in type 30 records and 
- * jobs that don't write type 30.2 and 30.3 records e.g. system tasks
- * that write 30.6.   
  * 
  * The report requires SMF 30 data from the 4 hours up to each 4HRA peak
  * otherwise results will be incorrect. 
@@ -155,85 +150,40 @@ public class PeakR4HAJobs
                         hour.format(DateTimeFormatter.ISO_LOCAL_TIME),
                         fourHourMSU);
 
-                // Get jobs for previous 4 hours
-                List<JobnameTotals> fourHourJobs = new ArrayList<>();       
-                for (int i = 0; i < 4; i++)
+                // Merge job totals for the peak hour and preceding 3 hours into one map per job name
+                Map<String, JobnameTotals> fourHourJobs = new HashMap<>();
+                for (int lookBackHour = 0; lookBackHour < 4; lookBackHour++)
                 {
-                    if (hourlyJobTotals.containsKey(hour.minusHours(i)))
+                    Map<String, JobnameTotals> previousHour = hourlyJobTotals.get(hour.minusHours(lookBackHour));
+                    if (previousHour != null)
                     {
-                        fourHourJobs.addAll(hourlyJobTotals.get(hour.minusHours(i)).values());
+                        previousHour.forEach((jobname, jobTotals) ->
+                                fourHourJobs.computeIfAbsent(jobname, JobnameTotals::new).add(jobTotals));
                     }
                 }
-                               
-                // Calculate total CP time for all jobs during the 4 hours
-                double fourHourTotalCpTime = 
-                    fourHourJobs
-                        .stream()
-                        .collect(Collectors.summingDouble(JobnameTotals::getCpTime));
-                
-                report4HourTopCpJobs(fourHourMSU, fourHourJobs, fourHourTotalCpTime);
-                report4HourTopZiipOnCpJobs(fourHourMSU, fourHourJobs, fourHourTotalCpTime);    
+
+                printTopJobs("CPU%", fourHourJobs, JobnameTotals::getCpTime, JobnameTotals::getCpMsu);
+                System.out.println();
+                printTopJobs("zIIP On CP%", fourHourJobs, JobnameTotals::getZiipOnCpTime,
+                        JobnameTotals::getZiipOnCpMsu);
             });
     }
 
-    private static void report4HourTopCpJobs(long msuvalue, List<JobnameTotals> fourHourJobs, double fourHourTotalCpTime) {
-        // Heading
-        System.out.format("%n        %-12s %11s %12s%n", 
-                "Jobname", "CPU%", "Est. MSU");
-        
-        // Build and print detail lines      
-        fourHourJobs
-            .stream()
-            // Each job name might have entries from multiple hours
-            // Group by job name, and calculate sum of CP time for each job name 
-            .collect(
-                Collectors.groupingBy(JobnameTotals::getJobname, 
-                        Collectors.summingDouble(JobnameTotals::getCpTime)))
-            // process each job name
-            .entrySet().stream()
-            // sort job names by CP time, reversed to sort descending
-            .sorted((jobATotal,jobBTotal) -> jobBTotal.getValue().compareTo(jobATotal.getValue()))
-            // take top 5
-            .limit(5) 
-            // write detail lines
-            .forEachOrdered(jobCpTime -> 
-                System.out.format("        %-12s %10.1f%% %12.1f%n", 
-                        // job name
-                        jobCpTime.getKey(), 
-                        // Average job CPU %
-                        jobCpTime.getValue() / Duration.ofHours(4).getSeconds() * 100,
-                        // Estimated MSU: 4 hour job CPU time / 4 hour all CPU time * 4 hour MSU 
-                        jobCpTime.getValue() / fourHourTotalCpTime * msuvalue));
-    }
+    private static void printTopJobs(String cpuType,
+            Map<String, JobnameTotals> jobs,
+            ToDoubleFunction<JobnameTotals> timeFn,
+            ToDoubleFunction<JobnameTotals> msuFn)
+    {
+        System.out.format("%n        %-12s %11s %12s%n", "Jobname", cpuType, "4H Av.MSU");
+        double wallSeconds = Duration.ofHours(4).getSeconds();
 
-    private static void report4HourTopZiipOnCpJobs(long msuvalue, List<JobnameTotals> fourHourJobs, double fourHourTotalCpTime) {
-        // Heading
-        System.out.format("%n%n        %-12s %11s %12s%n", 
-                "Jobname", "zIIP On CP%", "Est. MSU");
-        
-        // Build and print detail lines      
-        fourHourJobs
-            .stream()
-            // Each job name might have entries from multiple hours
-            // Group by job name, and calculate sum of zIIP on CP time for each job name 
-            .collect(
-                Collectors.groupingBy(JobnameTotals::getJobname, 
-                        Collectors.summingDouble(JobnameTotals::getZiipOnCpTime)))
-            // process each job name
-            .entrySet().stream()
-            // sort job names by zIIP on CP time, reversed to sort descending
-            .sorted((jobATotal,jobBTotal) -> jobBTotal.getValue().compareTo(jobATotal.getValue()))
-            // take top 5
-            .limit(5) 
-            // write detail lines
-            .forEachOrdered(jobCpTime -> 
-                System.out.format("        %-12s %10.1f%% %12.1f%n", 
-                        // job name
-                        jobCpTime.getKey(), 
-                        // Average job CPU %
-                        jobCpTime.getValue() / Duration.ofHours(4).getSeconds() * 100,
-                        // Estimated MSU: 4 hour zIIP on CP time / 4 hour all CPU time * 4 hour MSU 
-                        jobCpTime.getValue() / fourHourTotalCpTime * msuvalue));
+        jobs.values().stream()
+                .sorted(Comparator.comparingDouble(msuFn).reversed())
+                .limit(5)
+                .forEachOrdered(j -> System.out.format("        %-12s %10.1f%% %12.1f%n",
+                        j.getJobname(),
+                        timeFn.applyAsDouble(j) / wallSeconds * 100,
+                        msuFn.applyAsDouble(j) / 4.0));
     }
     
     /**
@@ -244,6 +194,8 @@ public class PeakR4HAJobs
     {
         private double cpTime = 0;
         private double ziipOnCpTime = 0;
+        private double cpMsu = 0;
+        private double ziipOnCpMsu = 0;
         private String jobname;
         
         /**
@@ -268,8 +220,7 @@ public class PeakR4HAJobs
             ProcessorAccountingSection pacct = r30.processorAccountingSection();
             if (pacct != null)
             {
-                cpTime = cpTime
-                    + pacct.smf30cptSeconds()
+            	double cp =  pacct.smf30cptSeconds()
                     + pacct.smf30cpsSeconds()
                     + pacct.smf30icuSeconds()
                     + pacct.smf30isbSeconds()
@@ -277,13 +228,34 @@ public class PeakR4HAJobs
                     + pacct.smf30rctSeconds()
                     + pacct.smf30hptSeconds()
                     ;
-                ziipOnCpTime = ziipOnCpTime 
-                    + pacct.smf30TimeZiipOnCpSeconds();
+                double ziipOnCp = pacct.smf30TimeZiipOnCpSeconds();
+                
+                cpTime += cp;
+                ziipOnCpTime += ziipOnCp;
+                
+		    	if (r30.performanceSection().smf30RctpcpuaActual() != 0)
+		    	{
+			    	cpMsu += cp * 16 * r30.performanceSection().smf30RctpcpuaScalingFactor() / r30.performanceSection().smf30RctpcpuaActual();
+			    	ziipOnCpMsu += ziipOnCp * 16 * r30.performanceSection().smf30RctpcpuaScalingFactor() / r30.performanceSection().smf30RctpcpuaActual();
+		   	}
             }
+        }
+
+        /**
+         * Merge another bucket for the same job name (e.g. another hour in the 4-hour window).
+         */
+        public void add(JobnameTotals other)
+        {
+            cpTime += other.cpTime;
+            ziipOnCpTime += other.ziipOnCpTime;
+            cpMsu += other.cpMsu;
+            ziipOnCpMsu += other.ziipOnCpMsu;
         }
         
         public double getCpTime() { return cpTime; }
         public double getZiipOnCpTime() { return ziipOnCpTime; }
+        public double getCpMsu() { return cpMsu; }
+        public double getZiipOnCpMsu() { return ziipOnCpMsu; }
         public String getJobname() { return jobname; }
     }
     
