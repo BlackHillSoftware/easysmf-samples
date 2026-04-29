@@ -13,6 +13,10 @@ There is a [Tutorial](./tutorial) to help you get started and understand how Eas
 
 The Tutorial can be found here: [EasySMF Tutorial](./tutorial)
 
+## Sample Reports
+
+See the [Report Index](REPORTINDEX.md) for a detailed list of sample reports.
+
 ## Building the Samples
 
 The samples are set up to build using [Apache Maven](https://maven.apache.org/). To build the samples:
@@ -128,9 +132,7 @@ If you want to compile samples on z/OS, JCL is provided here:
 
 [JCL/COMPILE.jcl](./JCL/COMPILE.jcl)
 
-## Sample Reports
-
-See the [Report Index](REPORTINDEX.md) for a detailed list of sample reports.
+## Utility Programs
 
 ### Counting SMF Records
 
