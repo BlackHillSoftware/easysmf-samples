@@ -128,8 +128,8 @@ public class Cics1BParallel
     	
     	long count = 0;
     	double totalElapsed = 0;
-    	double minElapsed = Double.MAX_VALUE;
-    	double maxElapsed = Double.MIN_VALUE;
+    	double minElapsed = Double.POSITIVE_INFINITY;
+    	double maxElapsed = Double.NEGATIVE_INFINITY;
     	double cpu = 0;
     	
     	double avgElapsed() { return totalElapsed / count; } 
