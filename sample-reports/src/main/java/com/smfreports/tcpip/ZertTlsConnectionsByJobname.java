@@ -12,14 +12,17 @@ import com.blackhillsoftware.smf.smf30.*;
 
 /**
  * Read zERT summary records (SMF 119 subtype 12) for client TLS sessions,
- * and list the job, userid, summary time, and remote server IP.
- * Each output row is one summary record. Programs come from SMF type 30
- * for the same job, userid, and hour.
+ * and list the job, userid, remote server IP, and the first and last
+ * summary time for that combination.
+ * Programs come from SMF type 30 for the same system, job, userid, and hour.
  */
 public class ZertTlsConnectionsByJobname 
 {
-    private record TlsConn(LocalDateTime time, String jobname, String userid, InetAddress remoteIp) {}
-    private record JobHour(String jobname, String userid, LocalDateTime hour) {}
+    private record TlsConn(LocalDateTime time, String system, String jobname, String userid, InetAddress remoteIp) {}
+    private record ConnKey(String system, String jobname, String userid, InetAddress remoteIp) {}
+    private record JobHour(String system, String jobname, String userid, LocalDateTime hour) {}
+    private record ReportRow(String system, String jobname, String userid, LocalDateTime first, LocalDateTime last,
+            InetAddress remoteIp, List<String> programs) {}
 	
 	public static void main(String[] args) throws IOException, IllegalArgumentException 
 	{
@@ -47,7 +50,8 @@ public class ZertTlsConnectionsByJobname
 					if (r119.zertSummaryCommonSection().smf119ssSaClient() 
 							&& r119.zertSummaryCommonSection().smf119ssSaSecProtoTls())
 					{
-						connections.add(new TlsConn(r119.smfDateTime(), 
+						connections.add(new TlsConn(r119.smfDateTime(),
+								r119.system(),
 								r119.zertSummaryCommonSection().smf119ssSaJobname(),
 								r119.zertSummaryCommonSection().smf119ssSaUserID(),
 								r119.zertSummaryCommonSection().smf119ssSaSrvIp()));
@@ -71,6 +75,7 @@ public class ZertTlsConnectionsByJobname
 								: r30.identificationSection().smf30pgm();
 						if (program != null && program.length() > 0)
 						{
+							String system = r30.system();
 							String jobname = r30.identificationSection().smf30jbn();
 							String userid = r30.identificationSection().smf30rud();
 							LocalDateTime recordHour = r30.smfDateTime().truncatedTo(ChronoUnit.HOURS);
@@ -81,19 +86,19 @@ public class ZertTlsConnectionsByJobname
 										.truncatedTo(ChronoUnit.HOURS);
 								while (!hour.isAfter(recordHour))
 								{
-									addProgram(jobPrograms, jobname, userid, hour, program);
+									addProgram(jobPrograms, system, jobname, userid, hour, program);
 									hour = hour.plusHours(1);
 								}
 							}
 							else
 							{
-								addProgram(jobPrograms, jobname, userid, recordHour, program);
+								addProgram(jobPrograms, system, jobname, userid, recordHour, program);
 								LocalDateTime intervalStart = processors.smf30idt()
 										.atTime(processors.smf30ist())
 										.truncatedTo(ChronoUnit.HOURS);
 								if (!intervalStart.equals(recordHour))
 								{
-									addProgram(jobPrograms, jobname, userid, intervalStart, program);
+									addProgram(jobPrograms, system, jobname, userid, intervalStart, program);
 								}
 							}
 						}
@@ -111,67 +116,103 @@ public class ZertTlsConnectionsByJobname
 
 	private static void writeReport(List<TlsConn> connections, Map<JobHour, Set<String>> jobPrograms) 
 	{
-		System.out.format("%-8s %-8s %-24s %-40s %s %n",
-				"Job",
-				"Userid",
-				"Time",
-				"Remote IP",
-				"Programs"
-				);
-		connections.stream()
-			.sorted(Comparator.comparing(TlsConn::jobname)
-					.thenComparing(TlsConn::time))
-			.forEachOrdered(conn -> 
+		Map<ConnKey, List<TlsConn>> grouped = new HashMap<>();
+		for (TlsConn conn : connections)
+		{
+			grouped.computeIfAbsent(
+					new ConnKey(conn.system(), conn.jobname(), conn.userid(), conn.remoteIp()),
+					key -> new ArrayList<>())
+				.add(conn);
+		}
+
+		List<ReportRow> rows = new ArrayList<>();
+		for (var entry : grouped.entrySet())
+		{
+			LocalDateTime first = null;
+			LocalDateTime last = null;
+			Set<String> programs = new TreeSet<>();
+			for (TlsConn conn : entry.getValue())
 			{
-				String prefix = String.format("%-8s %-8s %-24s %-40s ", 
-						conn.jobname(), 
-						conn.userid(), 
-						conn.time(),
-						conn.remoteIp().getHostAddress());
-				List<String> programs = jobPrograms
-						.getOrDefault(new JobHour(
-								conn.jobname(),
-								conn.userid(),
-								conn.time().truncatedTo(ChronoUnit.HOURS)),
-								Set.of()).stream()
-						.sorted()
-						.toList();
-				writePrograms(prefix, programs);
-			});	
+				if (first == null || conn.time().isBefore(first))
+				{
+					first = conn.time();
+				}
+				if (last == null || conn.time().isAfter(last))
+				{
+					last = conn.time();
+				}
+				programs.addAll(jobPrograms.getOrDefault(new JobHour(
+						conn.system(),
+						conn.jobname(),
+						conn.userid(),
+						conn.time().truncatedTo(ChronoUnit.HOURS)),
+						Set.of()));
+			}
+			ConnKey key = entry.getKey();
+			rows.add(new ReportRow(key.system(), key.jobname(), key.userid(), first, last,
+					key.remoteIp(), List.copyOf(programs)));
+		}
+		rows.sort(Comparator.comparing(ReportRow::jobname)
+				.thenComparing(ReportRow::system)
+				.thenComparing(ReportRow::userid)
+				.thenComparing(ReportRow::first));
+
+		System.out.format("%-8s %-8s %-8s %-24s %-24s %-40s%n",
+				"Job",
+				"System",
+				"Userid",
+				"First",
+				"Last",
+				"Remote IP"
+				);
+		for (ReportRow row : rows)
+		{
+			System.out.format("%-8s %-8s %-8s %-24s %-24s %-40s%n", 
+					row.jobname(),
+					row.system(),
+					row.userid(), 
+					row.first(),
+					row.last(),
+					row.remoteIp().getHostAddress());
+			writePrograms(row.programs());
+		}
 	}
 
 	private static void addProgram(Map<JobHour, Set<String>> jobPrograms,
-			String jobname, String userid, LocalDateTime hour, String program)
+			String system, String jobname, String userid, LocalDateTime hour, String program)
 	{
-		jobPrograms.computeIfAbsent(new JobHour(jobname, userid, hour),
+		jobPrograms.computeIfAbsent(new JobHour(system, jobname, userid, hour),
 				job -> new HashSet<>())
 			.add(program);
 	}
 
-	private static void writePrograms(String prefix, List<String> programs)
+	private static void writePrograms(List<String> programs)
 	{
-		final int perLine = 4;
-		System.out.print(prefix);
 		if (programs.isEmpty())
 		{
-			System.out.println();
 			return;
 		}
 
-		String indent = " ".repeat(prefix.length());
+		final int perLine = 4;
+		// Job, system, and userid columns, so names start under First.
+		final String indent = " ".repeat(8 + 1 + 8 + 1 + 8 + 1);
 		for (int i = 0; i < programs.size(); i++)
 		{
-			if (i > 0 && i % perLine == 0)
+			if (i % perLine == 0)
 			{
-				System.out.println();
+				if (i > 0)
+				{
+					System.out.println();
+				}
 				System.out.print(indent);
 			}
-			else if (i > 0)
+			else
 			{
 				System.out.print(' ');
 			}
 			System.out.format("%-8s", programs.get(i));
 		}
+		System.out.println();
 		System.out.println();
 	}
 } 
