@@ -33,7 +33,7 @@ import com.blackhillsoftware.smf.summary.Top;
  * 
  * To run the program as a single file source code:
  * 
- * $ export CLASSPATH='/home/andrew/easysmf-je-2.2.1/jar/*'
+ * $ export CLASSPATH='/home/andrew/easysmf-je-3.0.0/jar/*'
  * $ java CombinedLparMSU.java <inputfile1> [inputfile2 ...]
  *
  */

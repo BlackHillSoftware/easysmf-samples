@@ -5,7 +5,7 @@
 //* ***** Edit with CAPS OFF and NUMBER OFF *****
 //*
 //* Run a Java program using JZOS Batch Launcher
-//* Must run under Java 11
+//* This sample runs under Java 21
 //*
 // EXPORT SYMLIST=*
 //*
@@ -20,11 +20,11 @@
 //*
 // SET TGT='./java/rti-http-json'
 //*
-//* Location of JZOS batch launcher module JVMLDM16:
+//* Location of JZOS batch launcher module JVMLDM21:
 // SET JZOSLIB=JZOS.LINKLIBE
 //*
 //* Location of Java:
-// SET JAVA='/usr/lpp/java/J11.0_64'
+// SET JAVA='/usr/lpp/java/J21.0_64'
 //*
 //* SMF data to process
 // SET SMFINMEM=IFASMF.MYRECS
@@ -32,7 +32,7 @@
 //*
 //* Run a Java program under JZOS Batch Launcher
 //*
-//G        EXEC PGM=JVMLDM16,REGION=0M,
+//G        EXEC PGM=JVMLDM21,REGION=0M,
 // PARM='/ &CLASS'
 //*
 //STEPLIB  DD DISP=SHR,DSN=&JZOSLIB

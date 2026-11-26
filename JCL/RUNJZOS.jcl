@@ -32,18 +32,18 @@
 //* EasySMF directory:
 // SET EZSMFDIR='./easysmf-je-3.0.0'
 //*
-//* Location of JZOS batch launcher module JVMLDM80:
+//* Location of JZOS batch launcher module JVMLDM21:
 // SET JZOSLIB=JZOS.LINKLIBE
 //*
 //* Location of Java:
-// SET JAVA='/usr/lpp/java/J17.0_64'
+// SET JAVA='/usr/lpp/java/J21.0_64'
 //*
 //* SMF data to process
 // SET SMFDATA=SMF.RECORDS
 //*
 //* Run a Java program under JZOS Batch Launcher
 //*
-//G        EXEC PGM=JVMLDM17,REGION=0M,
+//G        EXEC PGM=JVMLDM21,REGION=0M,
 // PARM='/ &CLASS &JARDIR.&JAR.'
 //*
 //STEPLIB  DD DISP=SHR,DSN=&JZOSLIB

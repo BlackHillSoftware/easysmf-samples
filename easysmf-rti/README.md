@@ -30,7 +30,7 @@ size exceeds a specified threshold.
 
 You can test this sample using the rti-http-servlet project to receive the records.
 
-This project requires Java 11 due to the use of the Java 11 HttpClient class.
+The supplied z/OS launch JCL uses Java 21. This project uses the HttpClient API.
 
 ## rti-http-json
 
@@ -42,7 +42,7 @@ the major sections into a JSON record and POSTs the JSON text to a http(s) URL.
 
 You can test this sample using the rti-http-servlet project to receive the records.
 
-This project requires Java 11 due to the use of the Java 11 HttpClient class.
+The supplied z/OS launch JCL uses Java 21. This project uses the HttpClient API.
 
 ## rti-notifications
 

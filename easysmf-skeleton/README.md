@@ -59,7 +59,7 @@ Other dependencies can be added to the **dependencies** section of the POM.
     <dependency>
         <groupId>com.blackhillsoftware.smf</groupId>
         <artifactId>easysmf-je</artifactId>
-        <version>2.2.1</version>
+        <version>3.0.0</version>
     </dependency>
     ...
 </dependencies>

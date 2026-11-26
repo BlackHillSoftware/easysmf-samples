@@ -21,7 +21,7 @@
 // SET EZSMFDIR='./easysmf-je-3.0.0'
 //*
 //* Location of Java:
-// SET JAVA='/usr/lpp/java/J17.0_64'
+// SET JAVA='/usr/lpp/java/J21.0_64'
 //*
 //* Symbols from JCL are assigned to environment variables in STDENV,
 //* then substituted by the shell to avoid JCL line length problems

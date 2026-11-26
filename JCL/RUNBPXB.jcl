@@ -37,7 +37,7 @@
 // SET EZSMFDIR='./easysmf-je-3.0.0'
 //*
 //* Location of Java:
-// SET JAVA='/usr/lpp/java/J17.0_64'
+// SET JAVA='/usr/lpp/java/J21.0_64'
 //*
 //* SMF data to process
 // SET SMFDATA=SMF.RECORDS

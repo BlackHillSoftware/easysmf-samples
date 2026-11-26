@@ -31,18 +31,18 @@
 //*
 // SET TWILIO='./twilio_auth'
 //*
-//* Location of JZOS batch launcher module JVMLDM86:
+//* Location of JZOS batch launcher module JVMLDM21:
 // SET JZOSLIB=JZOS.LINKLIBE
 //*
 //* Location of Java:
-// SET JAVA='/usr/lpp/java/J8.0_64'
+// SET JAVA='/usr/lpp/java/J21.0_64'
 //*
 //* SMF data to process
 // SET SMFINMEM=IFASMF.MYRECS
 //*
 //* Run a Java program under JZOS Batch Launcher
 //*
-//G        EXEC PGM=JVMLDM86,REGION=0M,
+//G        EXEC PGM=JVMLDM21,REGION=0M,
 // PARM='/ &CLASS'
 //*
 //STEPLIB  DD DISP=SHR,DSN=&JZOSLIB
@@ -70,7 +70,7 @@ bfs7xAdjI0XOpUr8KpdYrotpm8H7BoW5zTj06hOIPASOu+v0UMVLEBO7binrjjZQ
 IhY5Btu79q7ol6+saC6DKVkweUVzX4Vb7GLMhJkIH+U=
 **End
 //*
-//* Configure for JZOS: based on JVMJCL80/JVMPRC80
+//* Configure for JZOS with Java 21
 //*
 //* Plus source file which sets Twilio auth parameters
 //*
@@ -82,10 +82,9 @@ IhY5Btu79q7ol6+saC6DKVkweUVzX4Vb7GLMhJkIH+U=
 export JAVA_HOME=&JAVA
 export PATH=/bin:"${JAVA_HOME}"/bin
 
-LIBPATH=/lib:/usr/lib:"${JAVA_HOME}"/bin
-LIBPATH="${LIBPATH}":"${JAVA_HOME}"/lib/s390
-LIBPATH="${LIBPATH}":"${JAVA_HOME}"/lib/s390/j9vm
-LIBPATH="${LIBPATH}":"${JAVA_HOME}"/bin/classic
+LIBPATH=/lib:/usr/lib
+LIBPATH="${LIBPATH}":"${JAVA_HOME}"/lib
+LIBPATH="${LIBPATH}":"${JAVA_HOME}"/lib/j9vm
 export LIBPATH="${LIBPATH}":
 
 CLASSPATH="${CLASSPATH}":"&TGT."

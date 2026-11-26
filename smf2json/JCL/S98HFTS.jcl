@@ -12,7 +12,7 @@
 //* Location of sample jar files and dependencies (EasySMF etc):
 // SET  APPHOME='/home/<userid>/java/easysmf-samples'
 //*
-// SET JAVAHOME='/usr/lpp/java/J8.0'
+// SET JAVAHOME='/usr/lpp/java/J21.0_64'
 //*
 // SET    INDSN=MY.INPUT.SMF.DATASET
 // SET   OUTDSN=MY.OUTPUT.JSON.DATASET
@@ -73,15 +73,14 @@ export JAVA_HOME=&JAVAHOME
 
 export PATH=/bin:"${JAVA_HOME}"/bin
 
-LIBPATH=/lib:/usr/lib:"${JAVA_HOME}"/bin
-LIBPATH="$LIBPATH":"${JAVA_HOME}"/lib/s390
-LIBPATH="$LIBPATH":"${JAVA_HOME}"/lib/s390/j9vm
-LIBPATH="$LIBPATH":"${JAVA_HOME}"/bin/classic
+LIBPATH=/lib:/usr/lib
+LIBPATH="$LIBPATH":"${JAVA_HOME}"/lib
+LIBPATH="$LIBPATH":"${JAVA_HOME}"/lib/j9vm
 export LIBPATH="$LIBPATH":
 
 # Customize your CLASSPATH here
 APP_HOME=&APPHOME
-CLASSPATH=$APP_HOME:"${JAVA_HOME}"/lib:"${JAVA_HOME}"/lib/ext
+CLASSPATH=$APP_HOME:"${JAVA_HOME}"/lib
 
 # Add Application required jars to end of CLASSPATH
 for i in "${APP_HOME}"/*.jar; do

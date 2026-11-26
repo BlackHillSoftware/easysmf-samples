@@ -16,24 +16,24 @@
 // SET JAR=''
 //*
 //*SET CLASS='-jar'
-//*SET JARDIR='./easysmf-je-2.2.1/samples/jar/'
+//*SET JARDIR='./easysmf-je-3.0.0/samples/jar/'
 //*SET JAR='easysmf-rti-smt-switch-1.0.0.jar'
 //*
 //* EasySMF directory:
-// SET EZSMFDIR='./easysmf-je-2.2.1'
+// SET EZSMFDIR='./easysmf-je-3.0.0'
 //*
-//* Location of JZOS batch launcher module JVMLDM80:
+//* Location of JZOS batch launcher module JVMLDM21:
 // SET JZOSLIB=JZOS.LINKLIBE
 //*
 //* Location of Java:
-// SET JAVA='/usr/lpp/java/J8.0_64'
+// SET JAVA='/usr/lpp/java/J21.0_64'
 //*
 //* SMF data to process or
 // SET SMFDATA=IFASMF.ALLRECS
 //*
 //* Run a Java program under JZOS Batch Launcher
 //*
-//G        EXEC PGM=JVMLDM86,REGION=0M,
+//G        EXEC PGM=JVMLDM21,REGION=0M,
 // PARM='/ &CLASS &JARDIR.&JAR.'
 //*
 //STEPLIB  DD DISP=SHR,DSN=&JZOSLIB
@@ -61,17 +61,16 @@ ZDr/MrfnLisMJlp5VoZdf7LKhtfUEMz0kHBeJJZxKDo/LcsfRtcrLp5h0iEvzcmg
 8ksTOC2bubn5Xvg7lhwXJB0q47ulWXLqErZY0NFyIrc=
 **End
 //*
-//* Configure for JZOS: based on JVMJCL80/JVMPRC80
+//* Configure for JZOS with Java 21
 //*
 //STDENV   DD *,SYMBOLS=JCLONLY
 . /etc/profile
 export JAVA_HOME=&JAVA
 export PATH=/bin:"${JAVA_HOME}"/bin
 
-LIBPATH=/lib:/usr/lib:"${JAVA_HOME}"/bin
-LIBPATH="${LIBPATH}":"${JAVA_HOME}"/lib/s390
-LIBPATH="${LIBPATH}":"${JAVA_HOME}"/lib/s390/j9vm
-LIBPATH="${LIBPATH}":"${JAVA_HOME}"/bin/classic
+LIBPATH=/lib:/usr/lib
+LIBPATH="${LIBPATH}":"${JAVA_HOME}"/lib
+LIBPATH="${LIBPATH}":"${JAVA_HOME}"/lib/j9vm
 export LIBPATH="${LIBPATH}":
 
 CLASSPATH="${CLASSPATH}":"&TGT."

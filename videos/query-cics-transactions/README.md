@@ -51,7 +51,7 @@ Uncomment the output format you prefer.
 
 ## JCL
 
-JCL to run the samples as Java 11 single file source code programs under BPXBATCH can be found here:
+JCL to run the samples as Java 21 single file source code programs under BPXBATCH can be found here:
 
-[J11BPXB.txt](./JCL/J11BPXB.txt)
+[J21BPXB.txt](./JCL/J21BPXB.txt)
 

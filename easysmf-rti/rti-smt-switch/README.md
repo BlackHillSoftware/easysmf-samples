@@ -43,9 +43,9 @@ mvn -f pom.xml clean package
 
 The easysmf-rti-smt-switch jar file will be created in the ```./target``` directory. The project dependencies will be copied to ```./target/lib```.
 
-### Java 11 Single File Source Code
+### Java 21 Single File Source Code
 
-The source code is contained in a single file, so it can be run under Java 11 without a separate compile step. Copy the source to z/OS (or clone the samples using Git) and run under BPXBATCH using the [J11BPXB](./JCL/J11BPXB.jcl) JCL.
+The source code is contained in a single file, so it can be run under Java 21 without a separate compile step. Copy the source to z/OS (or clone the samples using Git) and run under BPXBATCH using the [J21BPXB](./JCL/J21BPXB.jcl) JCL.
 
 ## z/OS prerequisites
 
@@ -57,10 +57,10 @@ In order to run the samples on z/OS, some preparation is required:
 
 ## Run
 
-JCL is provided to run the program using Java 11 as a single file source code program, 
-or from a jar file under JAVA 8 (64 bit) or Java 11 JZOS.
+JCL is provided to run the program using Java 21 as a single file source code program,
+or from a jar file under Java 21 JZOS.
 
-* [J11BPXB.jcl](./JCL/J11BPXB.jcl) Java 11 single file source code
+* [J21BPXB.jcl](./JCL/J21BPXB.jcl) Java 21 single file source code
 * [RUNJZOS.jcl](./JCL/RUNJZOS.jcl) Run from jar file using JZOS
 
 The EasySMF:JE ```samples/jar/lib``` directory contains the dependencies needed to run the 

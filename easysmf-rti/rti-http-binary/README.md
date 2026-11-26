@@ -8,7 +8,7 @@ size exceeds a specified threshold.
 
 You can test this sample using the rti-http-servlet project to receive the records.
 
-This project requires Java 11 due to the use of the Java 11 HttpClient class.
+The supplied z/OS launch JCL uses Java 21. This project uses the HttpClient API.
 
 ## Build
 
@@ -24,7 +24,7 @@ The easysmf-rti-http-binary jar file will be created in the ```./target``` direc
 
 In order to run the samples on z/OS, some preparation is required:
 
-- Java 11 is required
+- Java 21 is used by the supplied JCL
 - SMF needs to be running in Logstream mode
 - The in memory resource(s) need to be defined to SMF
 - The user running the program needs RACF access to read from the in memory resource

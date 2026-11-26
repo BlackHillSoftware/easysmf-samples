@@ -126,6 +126,6 @@ MVS1.SMF.RECORDS.G####V##                              34           40          
 JCL to run the reports is provided:
 
 * Run from compiled jar files under JZOS : [RUNJZOS.jcl](./JCL/RUNJZOS.jcl)
-* Run from source code under Java 11 : [J11BPXB.txt](./JCL/J11BPXB.txt)
+* Run from source code under Java 21 : [J21BPXB.jcl](./JCL/J21BPXB.jcl)
 
-Running from source code under Java 11 is recommended, because several samples contain filter steps that can be modified between runs of the program. The Java 11 single file source code feature means that you can modify and run the programs without a separate compile step.
+Running from source code under Java 21 is recommended, because several samples contain filter steps that can be modified between runs of the program. The Java 21 single file source code feature means that you can modify and run the programs without a separate compile step.
