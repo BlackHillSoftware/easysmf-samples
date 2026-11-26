@@ -93,9 +93,9 @@ JCL to run the samples using BPXBATCH is available here:
 
 [JCL/RUNBPXB.jcl](./JCL/RUNBPXB.jcl)
 
-### Java 11 Single File Source Code Program
+### Java 21 Single File Source Code Program
 
-Many of the sample programs are in a single Java file, which makes them candidates for the single file source code feature in Java 11.
+Many of the sample programs are in a single Java file, which makes them candidates for the single file source code feature in Java 21.
 
 Programs can be executed by specifying the source file name to Java.
 
@@ -103,7 +103,7 @@ Programs can be executed by specifying the source file name to Java.
 
 JCL to run single file source code programs under BPXBATCH is available here:
 
-[JCL/J11BPXB.jcl](./JCL/J11BPXB.jcl)
+[JCL/J21BPXB.jcl](./JCL/J21BPXB.jcl)
 
 #### OMVS
 

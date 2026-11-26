@@ -61,22 +61,22 @@ The following JCL can be used to run the Dataset Activity report.
 // SET SMFDATA=SMF.RECORDS
 //*
 //* EasySMF directory and jar file:
-// SET EZSMFDIR='./java/easysmf-je-2.2.1'
-// SET EZSMFJAR='easysmf-je-2.2.1.jar'
+// SET EZSMFDIR='./java/easysmf-je-3.0.0'
+// SET EZSMFJAR='easysmf-je-3.0.0.jar'
 //*
 //* Sample directory and jar file:
 // SET SAMPLDIR='./java'
-// SET SAMPLJAR='easysmf-je-samples-2.2.1.jar'
+// SET SAMPLJAR='easysmf-je-samples-3.0.0.jar'
 //*
-//* Location of JZOS batch launcher module JVMLDM80: 
+//* Location of JZOS batch launcher module JVMLDM21:
 // SET JZOSLIB=JZOS.LINKLIBE
 //*
 //* Location of Java:
-// SET JAVA='/usr/lpp/java/J8.0'
+// SET JAVA='/usr/lpp/java/J21.0_64'
 //*
 //* Run a Java program under JZOS Batch Launcher
 //*
-//G        EXEC PGM=JVMLDM80,REGION=0M,
+//G        EXEC PGM=JVMLDM21,REGION=0M,
 // PARM='/ &CLASS &ARGS //DD:INPUT'
 //*
 //STEPLIB  DD DISP=SHR,DSN=&JZOSLIB
@@ -109,10 +109,9 @@ Inp8rU9qI3W6fnrDf8RP1S1MBiCcjmX8gDbYDO/Gm/k=
 export JAVA_HOME=&JAVA
 export PATH=/bin:"${JAVA_HOME}"/bin
 
-LIBPATH=/lib:/usr/lib:"${JAVA_HOME}"/bin
-LIBPATH="$LIBPATH":"${JAVA_HOME}"/lib/s390
-LIBPATH="$LIBPATH":"${JAVA_HOME}"/lib/s390/j9vm
-LIBPATH="$LIBPATH":"${JAVA_HOME}"/bin/classic
+LIBPATH=/lib:/usr/lib
+LIBPATH="$LIBPATH":"${JAVA_HOME}"/lib
+LIBPATH="$LIBPATH":"${JAVA_HOME}"/lib/j9vm
 export LIBPATH="$LIBPATH":
 
 CP="&EZSMFDIR./jar/&EZSMFJAR."

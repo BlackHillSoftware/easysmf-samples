@@ -23,13 +23,13 @@
 //* SET CLASS='com.smfreports.dcollect.DeltaDatasets'
 //*
 //* EasySMF directory:
-// SET EZSMFDIR='./easysmf-je-2.2.1'
+// SET EZSMFDIR='./easysmf-je-3.0.0'
 //*
-//* Location of JZOS batch launcher module JVMLDM80:
+//* Location of JZOS batch launcher module JVMLDM21:
 // SET JZOSLIB=JZOS.LINKLIBE
 //*
 //* Location of Java:
-// SET JAVA='/usr/lpp/java/J8.0'
+// SET JAVA='/usr/lpp/java/J21.0_64'
 //*
 //* DCOLLECT data to process
 // SET DCDATA=DCOLLECT.DATA
@@ -39,7 +39,7 @@
 //*
 //* Run a Java program under JZOS Batch Launcher
 //*
-//G        EXEC PGM=JVMLDM80,REGION=0M,
+//G        EXEC PGM=JVMLDM21,REGION=0M,
 // PARM='/ &CLASS'
 //*
 //STEPLIB  DD DISP=SHR,DSN=&JZOSLIB
@@ -69,17 +69,16 @@ g/ABXaBF23weg8PNSPTczlHFP6vrC8eBOx5SkGDzwR0JlTa0iDQ3tgH3gJqNnt4I
 RO/BCP8rAUr4NjMA5yFSqxGFnLG8pIOs+/64jB6fXV4=
 **End
 //*
-//* Configure for JZOS: based on JVMJCL80/JVMPRC80
+//* Configure for JZOS with Java 21
 //*
 //STDENV   DD *,SYMBOLS=JCLONLY
 . /etc/profile
 export JAVA_HOME=&JAVA
 export PATH=/bin:"${JAVA_HOME}"/bin
 
-LIBPATH=/lib:/usr/lib:"${JAVA_HOME}"/bin
-LIBPATH="${LIBPATH}":"${JAVA_HOME}"/lib/s390
-LIBPATH="${LIBPATH}":"${JAVA_HOME}"/lib/s390/j9vm
-LIBPATH="${LIBPATH}":"${JAVA_HOME}"/bin/classic
+LIBPATH=/lib:/usr/lib
+LIBPATH="${LIBPATH}":"${JAVA_HOME}"/lib
+LIBPATH="${LIBPATH}":"${JAVA_HOME}"/lib/j9vm
 export LIBPATH="${LIBPATH}":
 
 for i in "&EZSMFDIR./jar"/*.jar; do

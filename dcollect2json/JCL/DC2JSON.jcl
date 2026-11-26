@@ -12,21 +12,21 @@
 //* subdirectory relative to jar.
 //*
 // SET CLASS='-jar'
-// SET JARDIR='./easysmf-je-2.2.1/samples/jar/'
+// SET JARDIR='./easysmf-je-3.0.0/samples/jar/'
 // SET JAR='dcollect2json-1.0.0.jar'
 //*
-//* Location of JZOS batch launcher module JVMLDM80:
+//* Location of JZOS batch launcher module JVMLDM21:
 // SET JZOSLIB=JZOS.LINKLIBE
 //*
 //* Location of Java:
-// SET JAVA='/usr/lpp/java/J8.0'
+// SET JAVA='/usr/lpp/java/J21.0_64'
 //*
 //* DCOLLECT data to process
 // SET DCOLDATA=DCOLLECT.DATA
 //*
 //* Run a Java program under JZOS Batch Launcher
 //*
-//G        EXEC PGM=JVMLDM80,REGION=0M,
+//G        EXEC PGM=JVMLDM21,REGION=0M,
 // PARM='/ &CLASS &JARDIR.&JAR.'
 //*
 //STEPLIB  DD DISP=SHR,DSN=&JZOSLIB
@@ -112,7 +112,7 @@ OgQbVm9cD59omgHqDj6NSqxyRozxCVnPQlHzJ3FZg0k/Dbbsv5b74n532MAiO+Ua
 gzLVocxO8Zn/QEzrNGjHWRVnlO1doSd/ut/zncWjzXU=
 **End
 //*
-//* Configure for JZOS: based on JVMJCL80/JVMPRC80
+//* Configure for JZOS with Java 21
 //* CLASSPATH is ignored for executable jar but required for JZOS
 //*
 //STDENV   DD *,SYMBOLS=JCLONLY
@@ -120,10 +120,9 @@ gzLVocxO8Zn/QEzrNGjHWRVnlO1doSd/ut/zncWjzXU=
 export JAVA_HOME=&JAVA
 export PATH=/bin:"${JAVA_HOME}"/bin
 
-LIBPATH=/lib:/usr/lib:"${JAVA_HOME}"/bin
-LIBPATH="${LIBPATH}":"${JAVA_HOME}"/lib/s390
-LIBPATH="${LIBPATH}":"${JAVA_HOME}"/lib/s390/j9vm
-LIBPATH="${LIBPATH}":"${JAVA_HOME}"/bin/classic
+LIBPATH=/lib:/usr/lib
+LIBPATH="${LIBPATH}":"${JAVA_HOME}"/lib
+LIBPATH="${LIBPATH}":"${JAVA_HOME}"/lib/j9vm
 export LIBPATH="${LIBPATH}":
 
 CLASSPATH="${CLASSPATH}":"&JARDIR."
