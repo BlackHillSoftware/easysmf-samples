@@ -19,7 +19,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<maven.compiler.release>17</maven.compiler.release>
+		<maven.compiler.release>21</maven.compiler.release>
 
 		<!-- Plugin versions -->
 		<maven-enforcer-plugin.version>3.4.1</maven-enforcer-plugin.version>
@@ -30,7 +30,7 @@
 
 		<!-- Dependency versions -->
 		<easysmf-je.version>3.0.0</easysmf-je.version>
-		<easysmf-rti.version>0.9.13</easysmf-rti.version>
+		<easysmf-rti.version>1.1.0</easysmf-rti.version>
 		<easysmf-json.version>1.4.6</easysmf-json.version>
 	</properties>
 
